@@ -15,6 +15,6 @@ void newVacancy()
   struct vacancy *link = (struct vacancy*)malloc(sizeof(struct(vacancy));
   link->position = posIn;
   link->discription = disIn;
-  link->next = *head;
+  link->next = *vhead;
   head = link;
 }
