@@ -3,4 +3,6 @@
 
 int run(int x);
 
+struct vacancy newVacancy();
+
 #endif // LINCOLNFUNCTIONS_H_
