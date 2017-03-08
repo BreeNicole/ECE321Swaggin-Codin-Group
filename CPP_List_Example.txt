@@ -1,0 +1,41 @@
+#include <list>
+#include <iostream>
+#include <iterator>
+#include <string>
+using namespace std;
+
+class book
+{
+public:
+	int pages;
+	string title;
+
+	book(int i, string j)
+	{
+		pages = i;
+		title = j;
+	}
+};
+
+bool operator<(book const & lhs, book const & rhs) { return lhs.pages < rhs.pages; }
+
+int main()
+{
+
+
+	list<book> booklist;
+	list<book>::iterator p = booklist.begin();
+
+	booklist.push_back(book(55, "Name of the book 1"));
+	booklist.push_back(book(25, "Name of the book 2"));
+	booklist.push_back(book(15, "Name of the book 3"));
+	booklist.push_back(book(45, "Name of the book 4"));
+
+	booklist.sort();
+
+	for (list<book>::iterator it = booklist.begin(); it != booklist.end(); ++it)
+	{
+		cout << it->pages << " " << it->title << endl;
+	}
+	return 0;
+}
