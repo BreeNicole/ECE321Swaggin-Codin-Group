@@ -44,23 +44,23 @@ void main()
 			break;
 
 		case '3':
-			printf("Run Function 3\n"); //View Timetable (student)
+			printf("Run Function 3\n"); //View Timetable (student) Bree
 			break;
 
 		case '4':
-			printf("Run Function 4\n"); //View Personal Attendance (student)
+			printf("Run Function 4\n"); //View Personal Attendance (student) Bree
 			break;
 
 		case '5':
-			printf("Run Function 5\n"); //View all attendance (student)
+			printf("Run Function 5\n"); //View all attendance (student) Bree 
 			break;
 
 		case '6':
-			printf("Run Function 6\n"); //View Submissions (student)
+			printf("Run Function 6\n"); //View Submissions (student)  Bree
 			break;
 
 		case '7':
-			printf("Run Function 7\n"); //View Vacancies (student)
+			printf("Run Function 7\n"); //View Vacancies (student) Bree
 			break;
 
 		case '8':
@@ -88,7 +88,7 @@ void main()
 			break;
 
 		case 'C':
-			printf("Run Function C\n"); //Edit exam timetable (Faculty)
+			printf("Run Function C\n"); //Edit exam timetable (Faculty) Bree
 			break;
 
 		default:
