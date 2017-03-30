@@ -25,6 +25,7 @@ struct student *fcurrent = NULL;
 
 struct class {
   char title[32];
+  char roster[30][32]; // we need struct inside this struct to keep track of attendance???
   struct class *next;
 };
 
