@@ -88,7 +88,7 @@ void main()
 			break;
 
 		case 'C':
-			printf("Run Function C\n"); //Edit exam timetable (Faculty) Bree
+			printf("Run Function C\n"); //Edit exam timetable (Faculty)
 			break;
 
 		default:
