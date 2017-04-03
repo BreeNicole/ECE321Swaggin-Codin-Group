@@ -1,6 +1,6 @@
 #include "AndreaFunctions.h"
 
-void vacancies()
+void ViewVacancies()
 {
   
   
