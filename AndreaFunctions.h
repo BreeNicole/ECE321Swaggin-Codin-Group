@@ -1,7 +1,7 @@
 #ifndef ANDREAFUNCTIONS_H_
 #define ANDREAFUNCTIONS_H_
 
-void vacancies();
+void ViewVacancies();
 
 void StoreTimetable();
 
