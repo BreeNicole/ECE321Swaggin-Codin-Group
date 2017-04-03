@@ -1,44 +1,23 @@
 #ifndef STRUCTURES_H_
 define STRUCTURES_H_
 
-struct student {
+class user {
   int ID;
   string password;
   string firstName;
   string lastName;
-  struct student *next;
+  char group; // S (student), F (faculty)
 };
 
-struct student *shead = NULL; // These are useful for navigating linked lists
-struct student *scurrent = NULL;
-
-struct faculty {
-  int ID;
-  string password;
-  string firstName;
-  string lastName;
-  struct faculty *next;
-};
-
-struct student *fhead = NULL;
-struct student *fcurrent = NULL;
-
-struct class {
+class course {
   string title;
-  char roster[30][32]; // we need struct inside this struct to keep track of attendance???
-  struct class *next;
+  string attendance [30][2]; // ID will go in [x][1], (present / notpresent) will go in [x][2], this allots for 30 people in each class (we might need more)
 };
 
-struct student *chead = NULL;
-struct student *ccurrent = NULL;
-
-struct vacancy {
+class vacancy {
   string position;
   string discription;
-  struct vacancy *next;
 };
 
-struct student *vhead = NULL;
-struct student *vcurrent = NULL; 
 
 #endif // STRUCTURES_H_
