@@ -98,8 +98,10 @@ void main()
 	}
 }
 
-void readfile() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
+list<user> readfile() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
 {
+	list<user> readUser;
+	list<user>::iterator p = booklist.begin();
 	string line;
 	ifstream infile;
 	int i = 0;
@@ -118,7 +120,7 @@ void readfile() // This function will read the file and input the data in to the
 				s.erase(0,pos + 1);
 				++i;
 			}
-			
+		readUser.push_back(user(dataArray[0],dataArray[1],dataArray[2],dataArray[3],dataArray[4]));
 		}
 		infile.close();
 	}
