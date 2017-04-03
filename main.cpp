@@ -100,7 +100,32 @@ void main()
 
 void readfile() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
 {
-
+	string line;
+	ifstream infile;
+	int i = 0;
+	string dataArray[5]
+	size_t pos = 0;
+	string token;
+	infile.open("users.txt");
+	if(infile.is_open())
+	{
+		while( getline (infile,line))
+		{
+			while(( pos = s.find("/")) != npos)
+			{
+				token = line.substr(0,pos);
+				dataArray[i] = token;
+				s.erase(0,pos + 1);
+				++i;
+			}
+			
+		}
+		infile.close();
+	}
+	else
+	{
+		cout << "File fialed to open" << endl;
+	}
 }
 
 void savefile()
