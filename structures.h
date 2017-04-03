@@ -3,9 +3,9 @@ define STRUCTURES_H_
 
 struct student {
   int ID;
-  char password[32];
-  char firstName[16];
-  char lastName[16];
+  string password;
+  string firstName;
+  string lastName;
   struct student *next;
 };
 
@@ -14,9 +14,9 @@ struct student *scurrent = NULL;
 
 struct faculty {
   int ID;
-  char password[32];
-  char firstName[16];
-  char lastName[16];
+  string password;
+  string firstName;
+  string lastName;
   struct faculty *next;
 };
 
@@ -24,7 +24,7 @@ struct student *fhead = NULL;
 struct student *fcurrent = NULL;
 
 struct class {
-  char title[32];
+  string title;
   char roster[30][32]; // we need struct inside this struct to keep track of attendance???
   struct class *next;
 };
@@ -33,8 +33,8 @@ struct student *chead = NULL;
 struct student *ccurrent = NULL;
 
 struct vacancy {
-  char position[32];
-  char discription[128];
+  string position;
+  string discription;
   struct vacancy *next;
 };
 
