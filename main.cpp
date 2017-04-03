@@ -98,10 +98,10 @@ void main()
 	}
 }
 
-list<user> readfile() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
+list<user> readUsers() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
 {
 	list<user> readUser;
-	list<user>::iterator p = booklist.begin();
+	list<user>::iterator p = readUser.begin();
 	string line;
 	ifstream infile;
 	int i = 0;
@@ -113,16 +113,17 @@ list<user> readfile() // This function will read the file and input the data in 
 	{
 		while( getline (infile,line))
 		{
-			while(( pos = s.find("/")) != npos)
+			while(( pos = line.find("/")) != string::npos)
 			{
 				token = line.substr(0,pos);
 				dataArray[i] = token;
-				s.erase(0,pos + 1);
+				line.erase(0,pos + 1);
 				++i;
 			}
 		readUser.push_back(user(dataArray[0],dataArray[1],dataArray[2],dataArray[3],dataArray[4]));
 		}
 		infile.close();
+		return readUser;
 	}
 	else
 	{
@@ -130,7 +131,73 @@ list<user> readfile() // This function will read the file and input the data in 
 	}
 }
 
-void savefile()
+list<course> readCourses() //Don't use this function yet
+{
+	list<user> readCourse;
+	list<user>::iterator p = readCourse.begin();
+	string line;
+	ifstream infile;
+	int i = 0;
+	string dataArray[5]
+	size_t pos = 0;
+	string token;
+	infile.open("courses.txt");
+	if(infile.is_open())
+	{
+		while( getline (infile,line))
+		{
+			while(( pos = line.find("/")) != string::npos)
+			{
+				token = line.substr(0,pos);
+				dataArray[i] = token;
+				line.erase(0,pos + 1);
+				++i;
+			}
+		//readUser.push_back(course(dataArray[0],dataArray[1],dataArray[2]));
+		}
+		infile.close();
+		return readCourse;
+	}
+	else
+	{
+		cout << "File fialed to open" << endl;
+	}
+}
+
+list<vacancy> readVacs()
+{
+	list<user> readVac;
+	list<user>::iterator p = readVac.begin();
+	string line;
+	ifstream infile;
+	int i = 0;
+	string dataArray[5]
+	size_t pos = 0;
+	string token;
+	infile.open("vacancies.txt");
+	if(infile.is_open())
+	{
+		while( getline (infile,line))
+		{
+			while(( pos = line.find("/")) != string::npos)
+			{
+				token = line.substr(0,pos);
+				dataArray[i] = token;
+				line.erase(0,pos + 1);
+				++i;
+			}
+		readVac.push_back(user(dataArray[0],dataArray[1]));
+		}
+		infile.close();
+		return readUser;
+	}
+	else
+	{
+		cout << "File fialed to open" << endl;
+	}
+}
+
+void saveUsers()
 {
 
 }
