@@ -36,7 +36,7 @@ public:
   }
   string get_password()
 	{
-		return password;
+	return password;
 	}
   char get_group()
   {
@@ -51,7 +51,7 @@ public:
   course(string a, string b)
   {
    title = a;
-    attendance = b;
+   attendance = b;
   }
 };
 
