@@ -2,6 +2,7 @@
 #include <list>
 #include <iterator>
 #include <string>
+#include <fstream>
 
 #include "structures.h"
 #include "LincolnFunctions.h"
@@ -11,11 +12,12 @@
 
 using namespace std;
 
+list<user> readUsers();
+
 void main()
 {
 	cout << "This is the best program, all others are bad" << endl;
-	int num = 3;
-	int z = add(num, 3); // This will set z to be num + 5, since the run fuction adds five to whatever number it is passed
+	list<user> userList = readUsers();
 	char input;
 	int program = 0;
 
@@ -32,10 +34,12 @@ void main()
 		do
 		cin >> input;
 		while (isspace(input));
+		list <user>::iterator it = userList.begin();
 		switch (input) {
 
 		case '1':
-			printf("Run Function 1\n");
+			printf("Run Function 1\n"); // Right now it just prints the first entry in the list
+			cout << it->get_ID() << " ID\n" << it->get_password() << " password\n" <<it->get_firstName() << " First\n" << it->get_lastName() << " Last\n" << it->get_group() << endl;
 			break;
 
 		case '2':
@@ -105,33 +109,36 @@ list<user> readUsers() // This function will read the file and input the data in
 	string line;
 	ifstream infile;
 	int i = 0;
-	string dataArray[5]
+	string dataArray[5];
 	size_t pos = 0;
 	string token;
 	infile.open("users.txt");
-	if(infile.is_open())
+	if(infile.is_open()) // This is going to be a problem if the file exists but it's empty (which shouldn't happen unless you manually edit the txt file), I'll look into a fix
 	{
 		while( getline (infile,line))
 		{
-			while(( pos = line.find("/")) != string::npos)
+			while(( pos = line.find("/")) != string::npos) // Nobody can have a / in their name, that will screw up the parsing. If it becomes a problem I will change the delimiter
 			{
 				token = line.substr(0,pos);
 				dataArray[i] = token;
 				line.erase(0,pos + 1);
 				++i;
 			}
-		readUser.push_back(user(dataArray[0],dataArray[1],dataArray[2],dataArray[3],dataArray[4]));
+			int dataZero = atoi(dataArray[0].c_str());
+			char dataFive = line[0];
+			readUser.push_back(user(dataZero, dataArray[1], dataArray[2], dataArray[3], dataFive));
 		}
 		infile.close();
-		return readUser;
 	}
 	else
 	{
 		cout << "File fialed to open" << endl;
+		readUser.push_back(user(1, "password", "admin", "", 'A'));
 	}
+	return readUser;
 }
 
-list<course> readCourses() //Don't use this function yet
+/*list<course> readCourses() //Don't use this function yet
 {
 	list<user> readCourse;
 	list<user>::iterator p = readCourse.begin();
@@ -195,7 +202,7 @@ list<vacancy> readVacs()
 	{
 		cout << "File fialed to open" << endl;
 	}
-}
+}*/
 
 void saveUsers()
 {
