@@ -47,11 +47,24 @@ public:
 class course {
   string title;
   string attendance; // ID will go in [x][1], (present / notpresent) will go in [x][2], this allots for 30 people in each class (we might need more)
+  string submission; // may change from string (I dont know how we want to deal with this)
 public:
   course(string a, string b)
   {
    title = a;
    attendance = b;
+  }
+  allAttendance(string a)
+  { 
+	// Bree's Student View Attendance will call this function to view the class attendance  
+  }
+  studAttendance(string a)
+  {
+	  // Bree's Student View Self Attendance will call this function to view their attendance for classes
+  }
+  studSub(string s)
+  {
+	 // Bree's ViewSub  will call this function so the student can view their submissions
   }
 };
 
@@ -63,6 +76,10 @@ public:
   {
     position = a;
     discription = b;
+  }
+  viewVac(string a, string b)
+  {
+	  // Bree's ViewVac will call this function so the student can view the vacancies
   }
 };
 
