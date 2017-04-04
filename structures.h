@@ -1,5 +1,5 @@
 #ifndef STRUCTURES_H_
-define STRUCTURES_H_
+#define STRUCTURES_H_
 
 class user {
   int ID;
@@ -13,22 +13,22 @@ public:
     ID = a;
     password = b;
     firstName = c;
-    lastname = d;
+    lastName = d;
     group = e;
   }
-  get_ID();
+  int get_ID()
   {
     return ID;
   }
-  get_firstName()
+  string get_firstName()
   {
     return firstName;
   }
-  get_lastName()
+  string get_lastName()
   {
     return lastName;
   }
-  get_group()
+  char get_group()
   {
     return group;
   }
