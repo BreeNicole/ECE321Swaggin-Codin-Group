@@ -1,6 +1,8 @@
 #ifndef STRUCTURES_H_
 #define STRUCTURES_H_
 
+using namespace std;
+
 class user {
   int ID;
   string password;
@@ -8,7 +10,11 @@ class user {
   string lastName;
   char group; // S (student), F (faculty)
 public:
-  user(int a, string b, string c, string d, char e)
+  user::user(int a, string b, string c, string d, char e)
+	{
+		setUser(a, b, c, d, e);
+	}
+  void setUser(int a, string b, string c, string d, char e)
   {
     ID = a;
     password = b;
@@ -28,6 +34,10 @@ public:
   {
     return lastName;
   }
+  string get_password()
+	{
+		return password;
+	}
   char get_group()
   {
     return group;
@@ -36,9 +46,9 @@ public:
 
 class course {
   string title;
-  string attendance [30][2]; // ID will go in [x][1], (present / notpresent) will go in [x][2], this allots for 30 people in each class (we might need more)
+  string attendance; // ID will go in [x][1], (present / notpresent) will go in [x][2], this allots for 30 people in each class (we might need more)
 public:
-  course(string a, string b[30][2])
+  course(string a, string b)
   {
    title = a;
     attendance = b;
