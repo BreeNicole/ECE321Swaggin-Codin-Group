@@ -8,6 +8,7 @@ class user {
   string password;
   string firstName;
   string lastName;
+  char classList[5]; //Will store the class list for the student
   char group; // S (student), F (faculty)
 public:
   user::user(int a, string b, string c, string d, char e)
