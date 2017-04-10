@@ -1,8 +1,6 @@
 #ifndef BREANNFUNCTIONS_H_
 #define BREANNFUNCTIONS_H_
 
-void ViewTimeTable();
-
 void ViewSelfAttend();
 
 void ViewAllAttend();
