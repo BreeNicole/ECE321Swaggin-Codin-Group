@@ -1,10 +1,5 @@
 #include "BreannFunctions.h"
 
-void ViewTimeTable() // Will allow the user to access the Time Table created by another function / structure
-{
-
-}
-
 void ViewSelfAttend() // Inside Function: choose a class then this function will allow the user to view their attendance
 {
   // will call the function from course struct studAttendance
