@@ -47,13 +47,17 @@ public:
 
 class course {
   string title;
-  string attendance[30][2]; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
+  int attendance[30][2]; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
   string submission; // may change from string (I dont know how we want to deal with this)
 public:
-  course(string a, string b)
+  course(string a)
   {
    title = a;
-   attendance = b;
+	  // Will need to find a way to set the students into the course
+  }
+  viewAttendance() // will allow us to return the full attendance for a class.
+  {
+	return attendance;
   }
 };
 
