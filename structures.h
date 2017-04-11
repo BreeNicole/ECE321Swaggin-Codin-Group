@@ -55,18 +55,6 @@ public:
    title = a;
    attendance = b;
   }
-  allAttendance(string a)
-  { 
-	// Bree's Student View Attendance will call this function to view the class attendance  
-  }
-  studAttendance(string a)
-  {
-	  // Bree's Student View Self Attendance will call this function to view their attendance for classes
-  }
-  studSub(string s)
-  {
-	 // Bree's ViewSub  will call this function so the student can view their submissions
-  }
 };
 
 class vacancy {
@@ -77,10 +65,6 @@ public:
   {
     position = a;
     discription = b;
-  }
-  viewVac(string a, string b)
-  {
-	  // Bree's ViewVac will call this function so the student can view the vacancies
   }
 };
 
