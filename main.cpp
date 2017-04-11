@@ -48,23 +48,23 @@ void main()
 			break;
 
 		case '3':
-			printf("Run Function 3\n"); //View Timetable (student) Bree
+			printf("Run Function 3\n"); //View Timetable (student)
 			break;
 
 		case '4':
-			printf("Run Function 4\n"); //View Personal Attendance (student) Bree
+			printf("Run Function 4\n"); //View Personal Attendance (student)
 			break;
 
 		case '5':
-			printf("Run Function 5\n"); //View all attendance (student) Bree 
+			printf("Run Function 5\n"); //View all attendance (student)
 			break;
 
 		case '6':
-			printf("Run Function 6\n"); //View Submissions (student)  Bree
+			printf("Run Function 6\n"); //View Submissions (student)
 			break;
 
 		case '7':
-			printf("Run Function 7\n"); //View Vacancies (student) Bree
+			printf("Run Function 7\n"); //View Vacancies (student)
 			break;
 
 		case '8':
@@ -74,9 +74,12 @@ void main()
 		case '9':
 			printf("Run Function 9\n"); //Update Timetable (Admin)
 			break;
-
 		case 'A':
-			printf("Run Function A\n"); //Post vacancies (Admin)
+			printf("Run Function A\n"); //Update Student Attendance (Faculty)
+			break;
+
+		case 'B':
+			printf("Run Function B\n"); //Post vacancies (Admin)
 
 			/*string posIn, disIn;
 			printf("Enter the position of the new vacancy");
@@ -87,12 +90,12 @@ void main()
 
 			break;
 
-		case 'B':
-			printf("Run Function B\n"); //view Details of students (Faculty)
+		case 'C':
+			printf("Run Function C\n"); //view Details of students (Faculty)
 			break;
 
-		case 'C':
-			printf("Run Function C\n"); //Edit exam timetable (Faculty)
+		case 'D':
+			printf("Run Function D\n"); //Edit exam timetable (Faculty)
 			break;
 
 		default:
