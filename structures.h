@@ -47,7 +47,7 @@ public:
 
 class course {
   string title;
-  string attendance; // ID will go in [x][1], (present / notpresent) will go in [x][2], this allots for 30 people in each class (we might need more)
+  string attendance[30][2]; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
   string submission; // may change from string (I dont know how we want to deal with this)
 public:
   course(string a, string b)
