@@ -55,6 +55,15 @@ public:
    title = a;
 	  // Will need to find a way to set the students into the course
   }
+  setAttendance(int *a) // Faculty function for their class attendance 
+  {
+   for(int i = 0; i < 30 && a[i][0] != NULL; i++)
+   {
+	   cout << "Was " << a[i][0] << "in class today? Press 1 for Present and 2 for Not Present. \n" << endl;
+	   cin << a[i][1];
+   }
+	  return a;
+  }
   viewAttendance() // will allow us to return the full attendance for a class.
   {
 	return attendance;
