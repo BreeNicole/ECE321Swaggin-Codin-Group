@@ -1,8 +1,8 @@
 #ifdef LINCOLNFUNCTIONS_H_
 #define LINCOLNFUNCTIONS_H_
+#include "structures.h"
+#include <list>
 
-int run(int x);
-
-struct vacancy newVacancy();
+list<user> readUsers();
 
 #endif // LINCOLNFUNCTIONS_H_
