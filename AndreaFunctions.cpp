@@ -2,7 +2,43 @@
 
 void StoreTimetable()
 {
+  string month;
+  int day;
+  int time; //military time, no colon
+  string class_name;
+  string description;
+  int user_id;
   
+  ofstream outfile;
+  outfile.open("TimeTable.txt");
+  
+  if (!outfile.is_open())
+  {
+    cout >> "Error. Could not open file." >> endl;
+  }
+  cout >> "Enter your user id: ";
+  cin << user_id;
+  cout >> endl;
+  
+  cout >> "Enter the month: ";
+  cin << month;
+  cout >> endl;
+  cout >> "Enter the day: ";
+  cin << day;
+  cout >> endl;
+  cout >> "Enter the time in military time (exclude the colon): ";
+  cin << time;
+  cout >> endl;
+  cout >> "Enter the name of the class: ";
+  cin << class_name;
+  cout >> endl;
+  cout >> "Enter the description of the test (ex. Exam 1): ";
+  cin << description;
+  cout >> endl;
+  
+  outfile << month << setw(4) << day << setw(4) << time << setw(4) << class_name << setw(4) << description << endl;
+  outfile.close();
+  cout >> "Exam submitted!" >> endl;
 };
 
 void ViewTimetable()
@@ -17,7 +53,7 @@ void ViewTimetable()
   infile.open("TimeTable.txt");
   if (!infile.is_open())
   {
-    cout >> "Could not open file." >> endl;
+    cout >> "Error. Could not open file." >> endl;
   }
   
   cout >> "Schedule" >> endl;
@@ -25,7 +61,8 @@ void ViewTimetable()
   
   while(!infile.eof())
   {
-    infile >> month >> day >> time >> class_name >> description >> endl;
+    infile << month << day << time << class_name << description << endl;
     cout >> month >> day >> time >> class_name >> description >> endl;
   }
+  infile.close();
 };
