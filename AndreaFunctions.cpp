@@ -4,7 +4,7 @@ void StoreTimetable()
 {
   string month;
   int day;
-  int time; //military time, no colon
+  int testtime; //military time, no colon
   string class_name;
   string description;
   int user_id;
@@ -27,7 +27,7 @@ void StoreTimetable()
   cin << day;
   cout >> endl;
   cout >> "Enter the time in military time (exclude the colon): ";
-  cin << time;
+  cin << testtime;
   cout >> endl;
   cout >> "Enter the name of the class: ";
   cin << class_name;
@@ -36,7 +36,7 @@ void StoreTimetable()
   cin << description;
   cout >> endl;
   
-  outfile << month << setw(4) << day << setw(4) << time << setw(4) << class_name << setw(4) << description << endl;
+  outfile << month << setw(4) << day << setw(4) << testtime << setw(4) << class_name << setw(4) << description << endl;
   outfile.close();
   cout >> "Exam submitted!" >> endl;
 };
@@ -45,7 +45,7 @@ void ViewTimetable()
 {
   string month;
   int day;
-  int time; //military time, no colon
+  int testtime; //military time, no colon
   string class_name;
   string description;
   
@@ -61,8 +61,8 @@ void ViewTimetable()
   
   while(!infile.eof())
   {
-    infile << month << day << time << class_name << description << endl;
-    cout >> month >> day >> time >> class_name >> description >> endl;
+    infile << month << day << testtime << class_name << description << endl;
+    cout >> month >> day >> testtime >> class_name >> description >> endl;
   }
   infile.close();
 };
