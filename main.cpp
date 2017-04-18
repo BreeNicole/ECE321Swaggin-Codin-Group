@@ -11,8 +11,8 @@
 #include "SarahFunctions.h"
 
 using namespace std;
-
 list<user> readUsers();
+void saveUsers(list<user>);
 
 void main()
 {
@@ -104,6 +104,7 @@ void main()
 
 		}
 	}
+	system("pause");
 }
 
 list<user> readUsers() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
@@ -128,16 +129,17 @@ list<user> readUsers() // This function will read the file and input the data in
 				line.erase(0,pos + 1);
 				++i;
 			}
+			i = 0;
 			int dataZero = atoi(dataArray[0].c_str());
 			char dataFive = line[0];
-			readUser.push_back(user(dataZero, dataArray[1], dataArray[2], dataArray[3], dataFive));
+			readUser.push_back(user(dataZero, dataArray[1], dataArray[2], dataArray[3], dataArray[4], dataFive));
 		}
 		infile.close();
 	}
 	else
 	{
-		cout << "File fialed to open" << endl;
-		readUser.push_back(user(1, "password", "admin", "", 'A'));
+		cout << "File failed to open" << endl;
+		readUser.push_back(user(1, "password", "admin", "", "", 'A'));
 	}
 	return readUser;
 }
@@ -173,16 +175,16 @@ list<user> readUsers() // This function will read the file and input the data in
 	{
 		cout << "File fialed to open" << endl;
 	}
-}
+}*/
 
-list<vacancy> readVacs()
+list<vacancy> readVacs() //dont use this function
 {
-	list<user> readVac;
-	list<user>::iterator p = readVac.begin();
+	list<vacancy> readVac;
+	list<vacancy>::iterator p = readVac.begin();
 	string line;
 	ifstream infile;
 	int i = 0;
-	string dataArray[5]
+	string dataArray[5];
 	size_t pos = 0;
 	string token;
 	infile.open("vacancies.txt");
@@ -197,16 +199,17 @@ list<vacancy> readVacs()
 				line.erase(0,pos + 1);
 				++i;
 			}
-		readVac.push_back(user(dataArray[0],dataArray[1]));
+			i = 0;
+		readVac.push_back(vacancy(dataArray[0],dataArray[1]));
 		}
 		infile.close();
-		return readUser;
+		return readVac;
 	}
 	else
 	{
-		cout << "File fialed to open" << endl;
+		cout << "File failed to open" << endl;
 	}
-}*/
+}
 
 void saveUsers(list<user> saveUser)
 {
@@ -214,9 +217,14 @@ void saveUsers(list<user> saveUser)
 	outfile.open("users.txt");
 	if(outfile.is_open())
 	{
-		for(list<user>::iterator it = saveUser.begin(); it != booklist.end(); it++)
+		for(list<user>::iterator it = saveUser.begin(); it != saveUser.end(); it++)
 		{
-			outfile << it->ID << '/' << it->password << '/' << it->firstName << '/' << it->lastName << '/' << it->classList[1]< < '/' << it->classList[2] << '/' << it->classList[3]<< '/' << it->classList[4] << '/' << it->classList[5] << '/' << it->group << endl;
+			outfile << it->get_ID() << '/';
+			outfile << it->get_password() << '/';
+			outfile << it->get_firstName() << '/';
+			outfile << it->get_lastName() << '/'; 
+			outfile << it->get_classList() << '/';
+			outfile << it->get_group() << endl;
 		}
 		cout << "users.txt saved" << endl;
 	}
@@ -225,3 +233,4 @@ void saveUsers(list<user> saveUser)
 		cout << "File failed to save" << endl;
 	}
 }
+
