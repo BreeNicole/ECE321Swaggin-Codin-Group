@@ -44,6 +44,7 @@ void main()
 
 		case '2':
 			printf("Run Function 2\n"); //Logout, save, and exit
+			saveUsers(userList);
 			program = 0;
 			break;
 
@@ -207,7 +208,20 @@ list<vacancy> readVacs()
 	}
 }*/
 
-void saveUsers()
+void saveUsers(list<user> saveUser)
 {
-
+	ofstream outfile;
+	outfile.open("users.txt");
+	if(outfile.is_open())
+	{
+		for(list<user>::iterator it = saveUser.begin(); it != booklist.end(); it++)
+		{
+			outfile << it->ID << '/' << it->password << '/' << it->firstName << '/' << it->lastName << '/' << it->classList[1]< < '/' << it->classList[2] << '/' << it->classList[3]<< '/' << it->classList[4] << '/' << it->classList[5] << '/' << it->group << endl;
+		}
+		cout << "users.txt saved" << endl;
+	}
+	else
+	{
+		cout << "File failed to save" << endl;
+	}
 }
