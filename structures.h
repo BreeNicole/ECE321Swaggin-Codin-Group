@@ -1,3 +1,6 @@
+#include <string>
+#include <iostream>
+
 #ifndef STRUCTURES_H_
 #define STRUCTURES_H_
 
@@ -8,20 +11,21 @@ class user {
   string password;
   string firstName;
   string lastName;
-  char classList[5]; //Will store the class list for the student
+  string classList; //Will store the class list for the student
   char group; // S (student), F (faculty)
 public:
-  user::user(int a, string b, string c, string d, char e)
+  user::user(int a, string b, string c, string d, string e, char f)
 	{
-		setUser(a, b, c, d, e);
+		setUser(a, b, c, d, e, f);
 	}
-  void setUser(int a, string b, string c, string d, char e)
+  void setUser(int a, string b, string c, string d, string e, char f)
   {
     ID = a;
     password = b;
     firstName = c;
     lastName = d;
-    group = e;
+    classList = e;
+	group = f;
   }
   int get_ID()
   {
@@ -43,19 +47,45 @@ public:
   {
     return group;
   }
+  string get_classList()
+  {
+	  return classList;
+  }
 };
 
 class course {
-  string title;
-  int attendance[30][2]; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
-  string submission; // may change from string (I dont know how we want to deal with this)
+	string title;
+	int attendance[30][2]; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
+	string submission; // may change from string (I dont know how we want to deal with this)
 public:
-  course(string a)
+	course::course(string a, string b, int c[30][2])
+	{
+		setCourse(a, b, c);
+	}
+	void setCourse(string a, string b, int c[30][2])
+	{
+		title = a;
+		submission = b;
+		memcpy(c, attendance, sizeof(c));
+	}
+	string get_title()
+	{
+		return title;
+	}
+	string get_submission()
+	{
+		return submission;
+	}
+	void get_course(int * setData)
+	{
+		memcpy(attendance, &setData, sizeof(attendance));
+	}
+  /*course(string a)
   {
    title = a;
 	  // Will need to find a way to set the students into the course
   }
-  setAttendance(int *a) // Faculty function for their class attendance 
+  int * setAttendance(int *a) // Faculty function for their class attendance 
   {
    for(int i = 0; i < 30 && a[i][0] != NULL; i++)
    {
@@ -64,21 +94,33 @@ public:
    }
 	  return a;
   }
-  viewAttendance() // will allow us to return the full attendance for a class.
+  /*void viewAttendance() // will allow us to return the full attendance for a class.
   {
 	return attendance;
-  }
+  }*/
 };
 
 class vacancy {
-  string position;
-  string discription;
+	string position;
+	string discription;
 public:
-  vacancy(string a, string b)
-  {
-    position = a;
-    discription = b;
-  }
+	vacancy::vacancy(string a, string b)
+	{
+		setVacancy(a, b);
+	}
+  void setVacancy(string a, string b)
+	{
+		position = a;
+		discription = b;
+	}
+	string get_position()
+	{
+		return position;
+	}
+	string get_description()
+	{
+		return discription;
+	}
 };
 
 
