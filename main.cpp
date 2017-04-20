@@ -24,7 +24,7 @@ void main()
 	while (program == 0)
 	{
 		printf("Login Function\n");
-		program = 1;
+		program = logIn(user);
 	}
 
 
