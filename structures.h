@@ -76,28 +76,24 @@ public:
 	{
 		return submission;
 	}
+	int * get_attendance() // How would I return the whole array?
+	{
+		return attendance;
+	}
 	void get_course(int * setData)
 	{
 		memcpy(attendance, &setData, sizeof(attendance));
 	}
-  /*course(string a)
-  {
-   title = a;
-	  // Will need to find a way to set the students into the course
-  }
-  int * setAttendance(int *a) // Faculty function for their class attendance 
-  {
-   for(int i = 0; i < 30 && a[i][0] != NULL; i++)
-   {
+  	int * setAttendance(int *a) // Faculty function for their class attendance 
+  	{
+	   for(int i = 0; i < 30 && a[i][0] != NULL; i++)
+  	 {
 	   cout << "Was " << a[i][0] << "in class today? Press 1 for Present and 2 for Not Present. \n" << endl;
 	   cin << a[i][1];
-   }
+	   // if()  Need to add a break into the the first side of the array to stop if  there is no more students
+  	 }
 	  return a;
-  }
-  /*void viewAttendance() // will allow us to return the full attendance for a class.
-  {
-	return attendance;
-  }*/
+  	}
 };
 
 class vacancy {
