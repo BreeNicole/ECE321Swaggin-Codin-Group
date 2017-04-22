@@ -11,40 +11,70 @@
 #include "SarahFunctions.h"
 
 using namespace std;
-list<user> readUsers();
-void saveUsers(list<user>);
+
 
 void main()
 {
 	cout << "This is the best program, all others are bad" << endl;
 	list<user> userList = readUsers();
-	char input;
+	list<vacancy> vacList = readVacs();
+	
 	int program = 0;
+	string posIn, disIn;
 
 	while (program == 0)
 	{
 		printf("Login Function\n");
-		program = logIn(user);
+		//program = logIn(user);
+		program = 1;
 	}
 
 
 	while (program == 1)
 	{
+
+		posIn = "";
+		disIn = "";
+		char input;
+		cout << "1: Print users" << endl;
+		cout << "2: Save and Exit" << endl;
+		cout << "3: View Timetable (in progress)" << endl;
+		cout << "4: View your attendance (in progress)" << endl;
+		cout << "5: View all attendance (in progress)" << endl;
+		cout << "6: View submissions (in progress)" << endl;
+		cout << "7: View Vacancies (in progress)" << endl;
+		cout << "8: Input attendance (in progress) [This function is currently acting as exit without saving for testing]" << endl;
+		cout << "9: Update Timetable (in progress)" << endl;
+		cout << "A: Update attendance (in progress)" << endl;
+		cout << "B: Post vacancy" << endl;
+		cout << "C: View details of student (in progress)" << endl;
+		cout << "D: Print Vacanies" << endl;
+		cout << "E: Add a new student" << endl;
+		cout << "F: Remove an existing student" << endl;
+		cout << "G: Remove a current vacancy posting" << endl;
 		printf("Enter your choice: ");
 		do
 		cin >> input;
 		while (isspace(input));
+		cin.clear();
 		list <user>::iterator it = userList.begin();
+		int numInput;
+		char cInput;
+		string sInput[5];
 		switch (input) {
 
 		case '1':
 			printf("Run Function 1\n"); // Right now it just prints the first entry in the list
-			cout << it->get_ID() << " ID\n" << it->get_password() << " password\n" <<it->get_firstName() << " First\n" << it->get_lastName() << " Last\n" << it->get_group() << endl;
+			for (list<user>::iterator it = userList.begin(); it != userList.end(); ++it)
+			{
+				cout << it->get_ID() << " ID\n" << it->get_password() << " password\n" << it->get_firstName() << " First\n" << it->get_lastName() << " Last\n" << it->get_group() << endl;
+			}
 			break;
 
 		case '2':
 			printf("Run Function 2\n"); //Logout, save, and exit
 			saveUsers(userList);
+			saveVacs(vacList);
 			program = 0;
 			break;
 
@@ -70,6 +100,7 @@ void main()
 
 		case '8':
 			printf("Run Function 8\n"); //Input Student Attendance (Faculty)
+			program = 0;
 			break;
 
 		case '9':
@@ -81,13 +112,12 @@ void main()
 
 		case 'B':
 			printf("Run Function B\n"); //Post vacancies (Admin)
-
-			/*string posIn, disIn;
+			cin.ignore();
 			printf("Enter the position of the new vacancy");
-			cin >> posIn;
+			getline(cin,posIn);
 			printf("Enter the discription of the new vacancy");
-			cin >> disIn;*/
-			//newVacancy(posIn, disIn);
+			getline(cin,disIn);
+			newVacancy(vacList, posIn, disIn);
 
 			break;
 
@@ -96,141 +126,45 @@ void main()
 			break;
 
 		case 'D':
-			printf("Run Function D\n"); //Edit exam timetable (Faculty)
+			printf("Run Function D\n");
+
+			for (list<vacancy>::iterator it = vacList.begin(); it != vacList.end(); ++it)
+			{
+				cout << it->get_position() << endl << it->get_description() << endl;
+			}
+
 			break;
 
+		case 'E':
+			cout << "Enter the new student's ID: ";
+			cin >> numInput;
+			cout << "Enter the new student's password: ";
+			cin >> sInput[1];
+			cout << "Enter the new student's first name: ";
+			cin >> sInput[2];
+			cout << "Enter the new student's last name: ";
+			cin >> sInput[3];
+			cout << "Enter the new students permissions (A = Admin, F = Faculty, S = Student): ";
+			cin >> cInput;
+			newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
+			break;
+
+		case 'F':
+			cout << "Enter the ID of the student you would like to remove: ";
+			cin >> numInput;
+			removeUser(userList, numInput);
+			break;
+
+		case 'G':
+			cout << "Enter the position of the vacancy you would like to remove: ";
+			cin.ignore();
+			getline(cin, sInput[1]);
+			removeVacancy(vacList, sInput[1]);
+			break;
 		default:
 			printf("Invalid input\n");
 
 		}
-	}
-	system("pause");
-}
-
-list<user> readUsers() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
-{
-	list<user> readUser;
-	list<user>::iterator p = readUser.begin();
-	string line;
-	ifstream infile;
-	int i = 0;
-	string dataArray[5];
-	size_t pos = 0;
-	string token;
-	infile.open("users.txt");
-	if(infile.is_open()) // This is going to be a problem if the file exists but it's empty (which shouldn't happen unless you manually edit the txt file), I'll look into a fix
-	{
-		while( getline (infile,line))
-		{
-			while(( pos = line.find("/")) != string::npos) // Nobody can have a / in their name, that will screw up the parsing. If it becomes a problem I will change the delimiter
-			{
-				token = line.substr(0,pos);
-				dataArray[i] = token;
-				line.erase(0,pos + 1);
-				++i;
-			}
-			i = 0;
-			int dataZero = atoi(dataArray[0].c_str());
-			char dataFive = line[0];
-			readUser.push_back(user(dataZero, dataArray[1], dataArray[2], dataArray[3], dataArray[4], dataFive));
-		}
-		infile.close();
-	}
-	else
-	{
-		cout << "File failed to open" << endl;
-		readUser.push_back(user(1, "password", "admin", "", "", 'A'));
-	}
-	return readUser;
-}
-
-/*list<course> readCourses() //Don't use this function yet
-{
-	list<user> readCourse;
-	list<user>::iterator p = readCourse.begin();
-	string line;
-	ifstream infile;
-	int i = 0;
-	string dataArray[5]
-	size_t pos = 0;
-	string token;
-	infile.open("courses.txt");
-	if(infile.is_open())
-	{
-		while( getline (infile,line))
-		{
-			while(( pos = line.find("/")) != string::npos)
-			{
-				token = line.substr(0,pos);
-				dataArray[i] = token;
-				line.erase(0,pos + 1);
-				++i;
-			}
-		//readUser.push_back(course(dataArray[0],dataArray[1],dataArray[2]));
-		}
-		infile.close();
-		return readCourse;
-	}
-	else
-	{
-		cout << "File fialed to open" << endl;
-	}
-}*/
-
-list<vacancy> readVacs() //dont use this function
-{
-	list<vacancy> readVac;
-	list<vacancy>::iterator p = readVac.begin();
-	string line;
-	ifstream infile;
-	int i = 0;
-	string dataArray[5];
-	size_t pos = 0;
-	string token;
-	infile.open("vacancies.txt");
-	if(infile.is_open())
-	{
-		while( getline (infile,line))
-		{
-			while(( pos = line.find("/")) != string::npos)
-			{
-				token = line.substr(0,pos);
-				dataArray[i] = token;
-				line.erase(0,pos + 1);
-				++i;
-			}
-			i = 0;
-		readVac.push_back(vacancy(dataArray[0],dataArray[1]));
-		}
-		infile.close();
-		return readVac;
-	}
-	else
-	{
-		cout << "File failed to open" << endl;
-	}
-}
-
-void saveUsers(list<user> saveUser)
-{
-	ofstream outfile;
-	outfile.open("users.txt");
-	if(outfile.is_open())
-	{
-		for(list<user>::iterator it = saveUser.begin(); it != saveUser.end(); it++)
-		{
-			outfile << it->get_ID() << '/';
-			outfile << it->get_password() << '/';
-			outfile << it->get_firstName() << '/';
-			outfile << it->get_lastName() << '/'; 
-			outfile << it->get_classList() << '/';
-			outfile << it->get_group() << endl;
-		}
-		cout << "users.txt saved" << endl;
-	}
-	else
-	{
-		cout << "File failed to save" << endl;
 	}
 }
 
