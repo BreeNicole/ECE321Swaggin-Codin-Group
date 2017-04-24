@@ -111,6 +111,7 @@ void main()
 
 		case '9':
 			printf("Run Function 9\n"); //Update Timetable (Admin)
+			//void StoreTimetable();
 			break;
 		case 'A':
 			printf("Run Function A\n"); //Update Student Attendance (Faculty)
