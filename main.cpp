@@ -100,8 +100,8 @@ void main()
 
 		case '7':
 			printf("Run Function 7\n"); //View Vacancies (student)
-			printf("Starting to print all available vacanies.....\n Please Wait...\n);
-			//readVacs();
+			cout >> "Starting to print all available vacanies.....\n Please Wait...\n >> endl;
+			readVacs();
 			break;
 
 		case '8':
