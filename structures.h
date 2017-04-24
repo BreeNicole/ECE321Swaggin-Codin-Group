@@ -84,13 +84,12 @@ public:
 	{
 		memcpy(attendance, &setData, sizeof(attendance));
 	}
-  	int * setAttendance(int *a) // Faculty function for their class attendance 
+  	int * setAttendance(class c, int *a) // Faculty function for their class attendance 
   	{
 	   for(int i = 0; i < 30 && a[i][0] != NULL; i++)
   	 {
 	   cout << "Was " << a[i][0] << "in class today? Press 1 for Present and 2 for Not Present. \n" << endl;
 	   cin << a[i][1];
-	   // if()  Need to add a break into the the first side of the array to stop if  there is no more students
   	 }
 	  return a;
   	}
