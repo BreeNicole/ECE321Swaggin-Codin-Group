@@ -27,8 +27,4 @@ void ViewSub() // allows the user (student) to view their submissions into their
   // Need to decide how to deal with the submissions
 }
 
-void ViewVac() // allows the user to view the job vacanies posted by the faculty
-{
-  //Need to see how the Vacanies are being dealt with
-}
 
