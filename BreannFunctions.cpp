@@ -2,10 +2,12 @@
 
 void ViewSelfAttend() // Inside Function: choose a class then this function will allow the user to view their attendance
 {
-  class c; // Need to figure out which datatype to use
+  class c;
+  int id;
+  cout >> "Please enter your User ID\n" >> endl;
+  cin << id;
   cout >> "Which class would you like to view your attendance for?\n" >> endl;
   cin << c;
-  
   // will search the attendance array for their ID number, then print out if they attended class or not
 }
 
