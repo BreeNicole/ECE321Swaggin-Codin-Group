@@ -7,6 +7,4 @@ void ViewAllAttend();
 
 void ViewSub();
 
-void ViewVac();
-
 #endif // BREANNFUNCTIONS_H_
