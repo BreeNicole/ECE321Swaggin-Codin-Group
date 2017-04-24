@@ -84,10 +84,14 @@ void main()
 
 		case '4':
 			printf("Run Function 4\n"); //View Personal Attendance (student)
+			//ViewSelfAttend();
+			//Takes the user input and allows them to view their personal attendance
 			break;
 
 		case '5':
 			printf("Run Function 5\n"); //View all attendance (student)
+			//ViewAllAttend();
+			// will take the class the user inputs and run the attendance function
 			break;
 
 		case '6':
@@ -96,6 +100,8 @@ void main()
 
 		case '7':
 			printf("Run Function 7\n"); //View Vacancies (student)
+			printf("Starting to print all available vacanies.....\n Please Wait...\n);
+			//readVacs();
 			break;
 
 		case '8':
@@ -108,6 +114,11 @@ void main()
 			break;
 		case 'A':
 			printf("Run Function A\n"); //Update Student Attendance (Faculty)
+			printf("Which class are you updating attendance for?\n");
+			// User input which class to go to
+			// will send the class to the function along with the array of attendance to update
+			// int * a=class.get_attendance(); will get the attendance for the function
+			//setAttendance(class c, int * a);
 			break;
 
 		case 'B':
