@@ -24,7 +24,7 @@ void main()
 
 	while (program == 0)
 	{
-		program == logIn(list<user>);
+		program = logIn(list<user>);
 	}
 
 
