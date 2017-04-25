@@ -21,4 +21,6 @@ int logIn(list<q>)
 			return 1;
 		}
 	}
+cout<<"Invalid Username/Password"<<endl;
+return 0;
 }
