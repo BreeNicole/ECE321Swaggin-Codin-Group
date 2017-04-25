@@ -5,22 +5,25 @@
 #include <iterator>
 #include <string>
 
-int logIn(list<q>)
+int logIn(list<user> userlist)
 {
-  string queryID;
+  int queryID;
   string queryPass;
   cout<<"Please enter your ID: ";
-  getline(cin, queryID);
+  cin >> queryID;
   cout<<"Please enter your password:  ";
-  getline(cin, queryPass);
+  cin >> queryPass;
   
-  for (list<q>::iterator it = q.begin(); it != q.end(); ++it)
+  for (list<user>::iterator it = userlist.begin(); it != userlist.end(); ++it)
 	{
-		if(it->ID ==queryID && strcmp(it->password, queryPass)==0)
+		if(it->ID == queryID && it->password == queryPass)
 		{
+			cout << "Valid login" << endl;
 			return 1;
+			break;
 		}
-	}
+		  
+   }
 cout<<"Invalid Username/Password"<<endl;
 return 0;
 }
