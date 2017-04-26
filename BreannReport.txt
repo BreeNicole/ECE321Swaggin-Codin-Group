@@ -1,0 +1,6 @@
+When we began this project, our group allocated different roles and pieces of the project to each person.
+I was given the portion of coding that dealt with the Student user.
+I had to decide how they were going to check attendance, submissions, and vacanies.
+Theoretically, I know exactly how the functions should run. However, I have had struggles and difficulties when actually writing them.
+I have spent time helping Andy with her functions for the timetable, as well as she has helped me with mine. 
+Overall, I am getting closer trying to figure out the code, but I still have not achieved exactly what I want. 
