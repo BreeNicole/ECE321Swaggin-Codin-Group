@@ -1,0 +1,7 @@
+This project has been a great coding and team building exercise for all of us.
+I have worked on the TimeTable functions. While they were challenging, it was fun working together to figure it out.
+Breann helped me a lot with the storing of the time table into a text file, and Lincoln explained to me how to use infile correctly.
+Because of this, I feel like I've become a better coder in general.
+All four of us have put in a lot of work into this project. We have almost finished the entire program.
+I just have to finish the viewing the TimeTable function, and then adjust the storing of the TimeTable to be in chronological order.
+I believe everyone has put in a lot of time and work on this project and has done such a good job.
