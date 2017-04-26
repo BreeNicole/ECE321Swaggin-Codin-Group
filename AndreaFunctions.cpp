@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
+#include <list>
+#include <iterator>
 using namespace std;
 
 void StoreTimetable()
@@ -32,36 +34,47 @@ void StoreTimetable()
 	cout << "Enter the description of the test, no spaces (ex. Exam1): ";
 	cin >> description;
 	
-	outfile << "Month" << " " << setw(12) << "Day" << " " << setw(12) << "Test Time" << " " << setw(12) << "Class Name" << " " << setw(12) << "Description" << endl;
-	outfile << month << setw(12) << day << setw(12) << testtime << setw(12) << class_name << setw(12) << description << endl;
+	outfile << "Month" << "/" << "Day" << "/" << "Test Time" << "/" << "Class Name" << "/" << "Description" << endl;
+	outfile << month << "/" << day << "/" << "/" << testtime << "/" << class_name << "/" << description << endl;
 	outfile << endl;
 	outfile.close();
 	cout << "Exam submitted!" << endl;
 };
-/* Have not gotten this function to work yet, Need to fix the infile
-void ViewTimetable()
-{
-string month;
-int day;
-int testtime; //military time, no colon
-string class_name;
-string description;
 
-ifstream infile;
-infile.open("TimeTable.txt");
-if (!infile.is_open())
+list<schedule> ViewTimetable()
 {
-cout << "Error. Could not open file." << endl;
-return;
-}
-while (getline(infile, line))
-{
-while (position = line.find("\n")) != string::npos)
-{
+	list<schedule> timetable;
+	list<schedule>::iterator p = ViewTimetable.begin();
+	string dataArray[6];
+	string info;
+	size_t pos = 0;
+	string line;
+	int i = 0;
 
-}
-}
-infile.close();
-
+	ifstream infile;
+	infile.open("TimeTable.txt");
+	if (!infile.is_open())
+	{
+		cout << "Error. Could not open file." << endl;
+		return;
+	}
+	while (getline(infile, line))
+	{
+		while (pos = line.find("/")) != string::npos)
+		{
+			info = line.substr(0, pos);
+			dataArray[i] = info;
+			line.rease(0, pos+1);
+			++i;
+		}
+		i = 0;
+		int dataOne = atoi(dataArray[1].c_str());
+		int dataTwo = atoi(dataArray[2].c_str());
+		char dataSix = line[0];
+		ViewTimetable.push_back(schedule(dataArray[0], dataOne, dataTwo, dataArray[3], dataArray[4], dataArray[5], dataSix));
+	}
+	
+	
+	infile.close();
+	return timetable;
 };
-*/
