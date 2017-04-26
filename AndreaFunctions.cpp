@@ -17,7 +17,7 @@ void StoreTimetable()
 	string description;
 
 	ofstream outfile;
-	outfile.open ("TimeTable.txt", ofstream::app);
+	outfile.open("TimeTable.txt", ofstream::app);
 
 	if (!outfile.is_open())
 	{
@@ -32,11 +32,10 @@ void StoreTimetable()
 	cin >> testtime;
 	cout << "Enter the name of the class: ";
 	cin >> class_name;
-	cout << "Enter the description of the test, no spaces (ex. Exam1): ";
+	cout << "Enter short description, no spaces (ex. Exam1): ";
 	cin >> description;
 	
-	outfile << "Month" << "/" << "Day" << "/" << "Test Time" << "/" << "Class Name" << "/" << "Description" << endl;
-	outfile << month << "/" << day << "/" << "/" << testtime << "/" << class_name << "/" << description << endl;
+	outfile << month << "/" << day << "/Time: " << testtime << "/" << class_name << "/" << description << endl;
 	outfile << endl;
 	outfile.close();
 	cout << "Exam submitted!" << endl;
@@ -51,7 +50,7 @@ void ViewTimetable()
 	int i = 0;
 
 	ifstream infile;
-	infile.open("TimeTable.txt");
+	infile.open("TimeTable.txt", ifstream::in | ifstream::out);
 	if (!infile.is_open())
 	{
 		cout << "Error. Could not open file." << endl;
@@ -63,7 +62,7 @@ void ViewTimetable()
 		{
 			info = line.substr(0, pos);
 			dataArray[i] = info;
-			line.erase(0, pos+1);
+			line.erase(0, pos + 1);
 			++i;
 		}
 		i = 0;
@@ -72,7 +71,7 @@ void ViewTimetable()
 		char dataSix = line[0];
 		cout << dataArray[0] << "/" << dataOne << "/" << dataTwo << "/" << dataArray[3] << "/" << dataArray[4] << "/" << dataArray[5] << "/" << dataSix << endl;
 	}
-	
-	
+
+
 	infile.close();
 };
