@@ -22,6 +22,7 @@ void StoreTimetable()
 	if (!outfile.is_open())
 	{
 		cout << "Error. Could not open file." << endl;
+		return;
 	}
 	cout << "Enter the month: ";
 	cin >> month;
