@@ -93,7 +93,7 @@ void ViewTimetable()
 	}
 	while (getline(infile, line))
 	{
-		while (pos = line.find("/") != string::npos)
+		while ((pos = line.find("/")) != string::npos)
 		{
 			info = line.substr(0, pos);
 			dataArray[i] = info;
