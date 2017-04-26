@@ -41,10 +41,8 @@ void StoreTimetable()
 	cout << "Exam submitted!" << endl;
 };
 
-list<schedule> ViewTimetable()
+void ViewTimetable()
 {
-	list<schedule> timetable;
-	list<schedule>::iterator p = ViewTimetable.begin();
 	string dataArray[6];
 	string info;
 	size_t pos = 0;
@@ -60,21 +58,20 @@ list<schedule> ViewTimetable()
 	}
 	while (getline(infile, line))
 	{
-		while (pos = line.find("/")) != string::npos)
+		while (pos = line.find("/") != string::npos)
 		{
 			info = line.substr(0, pos);
 			dataArray[i] = info;
-			line.rease(0, pos+1);
+			line.erase(0, pos+1);
 			++i;
 		}
 		i = 0;
 		int dataOne = atoi(dataArray[1].c_str());
 		int dataTwo = atoi(dataArray[2].c_str());
 		char dataSix = line[0];
-		ViewTimetable.push_back(schedule(dataArray[0], dataOne, dataTwo, dataArray[3], dataArray[4], dataArray[5], dataSix));
+		cout << dataArray[0] << "/" << dataOne << "/" << dataTwo << "/" << dataArray[3] << "/" << dataArray[4] << "/" << dataArray[5] << "/" << dataSix << endl;
 	}
 	
 	
 	infile.close();
-	return timetable;
 };
