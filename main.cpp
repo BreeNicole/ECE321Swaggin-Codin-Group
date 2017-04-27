@@ -18,13 +18,14 @@ void main()
 	cout << "This is the best program, all others are bad" << endl;
 	list<user> userList = readUsers();
 	list<vacancy> vacList = readVacs();
+	list<course> courseList = readCourses();
 	
 	int program = 0;
 	string posIn, disIn;
-
 	while (program == 0)
 	{
 		//program = logIn(list<user>);
+		//user current = new user(logIn)
 		program =1;
 	}
 
@@ -60,6 +61,16 @@ void main()
 		int numInput;
 		char cInput;
 		string sInput[5];
+		user bill;
+		for (list<user>::iterator it = userList.begin(); it != userList.end(); it++)
+		{
+
+			if (it->get_ID() == 1234)
+			{
+				bill = *it;
+			}
+		}
+
 		switch (input) {
 
 		case '1':
@@ -74,6 +85,7 @@ void main()
 			printf("Run Function 2\n"); //Logout, save, and exit
 			saveUsers(userList);
 			saveVacs(vacList);
+			saveCourse(courseList);
 			program = 0;
 			break;
 
@@ -99,7 +111,7 @@ void main()
 
 		case '7':
 			printf("Run Function 7\n"); //View Vacancies (student)
-			cout >> "Starting to print all available vacanies.....\n Please Wait...\n >> endl;
+			cout << "Starting to print all available vacanies.....\n Please Wait...\n" << endl;
 			readVacs();
 			break;
 
@@ -113,14 +125,12 @@ void main()
 			//void StoreTimetable();
 			break;
 		case 'A':
+			
 			printf("Run Function A\n"); //Update Student Attendance (Faculty)
-			printf("Which class are you updating attendance for?\n");
-			// User input which class to go to
-			// will send the class to the function along with the array of attendance to update
-			// int * a=class.get_attendance(); will get the attendance for the function
-			//setAttendance(class c, int * a);
+			
+			take_attendence(courseList, bill);
 			break;
-
+			
 		case 'B':
 			printf("Run Function B\n"); //Post vacancies (Admin)
 			cin.ignore();
