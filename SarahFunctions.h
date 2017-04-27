@@ -1,6 +1,8 @@
+#include "LincolnFunctions.h"
+#include <list>
 #ifndef SARAHFUNCTIONS_H_
 #define SARAHFUNCTIONS_H_
 
-int logIn(list<user> userlist);
+user logIn(list<user> userlist, int *prog);
 
-#endif SARAHFUNCTIONS_H_
+#endif //SARAHFUNCTIONS_H_#
