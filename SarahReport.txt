@@ -1,1 +1,1 @@
-
+While working on this project, I was tasked with creating the log in function. There was confusion in creating this function though due to another group member creating the user list. I was unsure how this list worked so I worked together with them to understand how it worked. Eventually I was able to create my log in function. I struggled to complete my log in function due to previously writing the code is in C rather C++ so occasionally I would mistakenly write a portion of the code in C. One of the struggles I faced while working on this project 
