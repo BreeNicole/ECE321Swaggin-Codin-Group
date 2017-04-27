@@ -5,15 +5,34 @@
 #include <fstream>
 #include <list>
 #include <iterator>
+#include <cstddef>
+#include <locale>
 
 void newVacancy(list<vacancy>& vacList, string positionIn, string discriptionIn)
 {
-	vacList.push_back(vacancy(positionIn,discriptionIn));
+	vacList.push_back(vacancy(positionIn, discriptionIn));
 }
 
 void newUser(list<user>& userList, int ID, string password, string firstName, string lastName, char group)
 {
 	userList.push_back(user(ID, password, firstName, lastName, "", group));
+}
+void newCourse(list<course>& courseList, string title)
+{
+	courseList.push_back(course(title));
+}
+void joinCourse(list<course>& courseList, string title, int ID)
+{
+	list<course>::iterator it;
+	for (it = courseList.begin(); it != courseList.end(); ++it)
+	{
+		if (it->get_title() == title)
+		{
+			it->setAttendance(it->get_attendance() + to_string(ID)+ "|");
+			cout << ID << " has joined " << title;
+		}
+	}
+	cout << "Course not found" << endl;
 }
 
 void removeVacancy(list<vacancy>& vacList, string del)
@@ -83,6 +102,42 @@ list<user> readUsers() // This function will read the file and input the data in
 	return readUser;
 }
 
+list<course> readCourses()
+{
+	list<course> readCourse;
+	list <course>::iterator p = readCourse.begin();
+	string line;
+	ifstream infile;
+	int i = 0;
+	string dataArray[5];
+	size_t pos = 0;
+	string token;
+	infile.open("courses.txt");
+	if (infile.is_open())
+	{
+		while (getline(infile, line))
+		{
+			while ((pos = line.find("/")) != string::npos)
+			{
+				token = line.substr(0, pos);
+				dataArray[i] = token;
+				line.erase(0, pos + 1);
+				++i;
+			}
+			dataArray[i] = line;
+			i = 0;
+			readCourse.push_back(course(dataArray[0], dataArray[1], dataArray[2]));
+		}
+		infile.close();
+	}
+	else
+	{
+		cout << "courses.txt failed to open" << endl;
+		readCourse.push_back(course("Temp", "Please remove this after you add a course", ""));
+	}
+	return readCourse;
+}
+
 list<vacancy> readVacs()
 {
 	list<vacancy> readVac;
@@ -142,6 +197,26 @@ void saveUsers(list<user> saveUser)
 	}
 }
 
+void saveCourse(list<course> saveCourse)
+{
+	ofstream outfile;
+	outfile.open("courses.txt");
+	if (outfile.is_open())
+	{
+		for (list<course>::iterator it = saveCourse.begin(); it != saveCourse.end(); ++it)
+		{
+			outfile << it->get_title() << '/';
+			outfile << it->get_attendance() << '/';
+			outfile << it->get_submission() << endl;
+		}
+		cout << "courses.txt saved" << endl;
+	}
+	else
+	{
+		cout << "vacancies.txt failed to save" << endl;
+	}
+}
+
 void saveVacs(list<vacancy> saveVac)
 {
 	ofstream outfile;
@@ -158,6 +233,123 @@ void saveVacs(list<vacancy> saveVac)
 	else
 	{
 		cout << "vacancies.txt failed to save" << endl;
+	}
+}
+
+void take_attendence(list<course> courses, user current)
+{
+	if (current.get_group() == 'S')
+	{
+		cout << "You do not have permission to do this. How did you even get here?" << endl;
+	}
+	else
+	{
+		//string * readIn = parseLine(current.get_classList());
+
+
+		string courseRead[5];
+		string token;
+		size_t pos = 0;
+		string buffer = current.get_classList();
+		int i = 0;
+		while ((pos = buffer.find("|")) != string::npos && i < 5)
+		{
+			token = buffer.substr(0, pos);
+			courseRead[i] = token;
+			buffer.erase(0, pos + 1);
+			++i;
+		}
+		courseRead[i] = buffer;
+
+		list<course>::iterator it;
+		int storeAtt[30];
+		bool loop = true;
+		do
+		{
+			cout << "Enter the name of the course you are taking attendence for: ";
+			string read;
+			bool found = false;
+			cin >> read;
+			for (int i = 0; i < 5; i++)
+			{
+				if (read == "Exit")
+				{
+					return;
+				}
+				if (read == courseRead[i])
+				{
+					found = true;
+					break;
+				}
+			}
+			if (found)
+			{
+				for (it = courses.begin(); it != courses.end(); ++it)
+				{
+					if (it->get_title() == read)
+					{
+						loop = false;
+						break;
+					}
+				}
+			}
+			cout << "Invalid course title. Type Exit to leave." << endl;
+		} while (loop);
+		//int * currentAtt = parseAtt(it->get_attendance());
+
+
+		int output[30];
+		pos = 0;
+		i = 0;
+		buffer = it->get_attendance();
+		while ((pos = buffer.find("|")) != string::npos && i < 30)
+		{
+			token = buffer.substr(0, pos);
+			output[i] = stoi(token);
+			buffer.erase(0, pos + 1);
+			++i;
+		}
+		//output[i] = stoi(input);
+		if (i != 29)
+		{
+			output[i] = NULL;
+		}
+
+
+		for (i = 0; i < 30 && output[i] != NULL; i++)
+		{
+			int readInt;
+			do
+			{
+				cout << "Is " << output[i] << " present (1 = Yes, 0 = No): ";
+				cin >> readInt;
+				if (readInt == 1 || readInt == 0)
+				{
+					storeAtt[i] = readInt;
+					break;
+				}
+				else
+				{
+					cout << "Invalid input" << endl;
+				}
+			} while (1);
+		}
+		ofstream outfile;
+		string file = ((it->get_title()) + ("_attendance.txt"));
+		outfile.open(file, ios_base::app);
+		if (!outfile.good())
+		{
+			cout << "File failed to open" << endl;
+			return;
+		}
+		outfile << "----------------------------------------------" << endl << endl;
+		for (int j = 0; j < i; j++)
+		{
+			outfile << output[j] << (storeAtt[j] ? (" Present") : (" Not_Present")) << endl;
+		}
+		outfile << endl << endl;
+		outfile.close();
+		return;
 	}
 }
 
