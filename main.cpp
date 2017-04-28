@@ -32,7 +32,7 @@ void main()
 
 	while (program == 1)
 	{
-
+		cin.clear();
 		posIn = "";
 		disIn = "";
 		char input;
@@ -83,30 +83,38 @@ void main()
 
 
 
-		case '3':
+		case '3': //View Timetable
 			break;
 
 
 
 		case '4': // prints attendance for the user
-			cout << "Enter the name of the class you are taking attendece for"; 
+			cout << "Enter the name of the class you are taking attendance for"; 
 			cin >> sInput[0];
+			cin.clear();
 			printAttendence(courseList, sInput[0], current.get_ID());
 			break;
 
 
 
 		case '5': // prints attendance for a student
-			cout << "Enter the name of the class you are taking attendece for: ";
+			cout << "Enter the name of the class you are taking attendance for: ";
 			cin >> sInput[0];
+			cin.clear();
 			cout << "Enter the ID of the student you want to view: ";
 			cin >> numInput;
+			cin.clear();
 			printAttendence(courseList, sInput[0], numInput);
 			break;
 
 
 
 		case '6': // Takes a user submission
+			if (current.get_group() == 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
 			takeSubmission(current);
 			break;
 
@@ -119,42 +127,76 @@ void main()
 
 
 		case '8': // creates a new course
-			cout << "Enter the Title of the new course: ";
-			cin >> sInput[0];
-			newCourse(courseList, sInput[0]);
+			if (current.get_group() != 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the Title of the new course: ";
+				cin >> sInput[0];
+				cin.clear();
+				newCourse(courseList, sInput[0]);
+			}
 			break;
 
 
 
-		case '9':
+		case '9': // Update Timetable
+			if (current.get_group() != 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
 			break;
 
 
 
 		case 'A': // Takes attendence
+			if (current.get_group() == 'F')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
 			take_attendence(courseList, current);
 			break;
 			
 
 
 		case 'B': //Post a new vacancy
-			cin.ignore();
-			printf("Enter the position of the new vacancy");
-			getline(cin,posIn);
-			printf("Enter the discription of the new vacancy");
-			getline(cin,disIn);
-			newVacancy(vacList, posIn, disIn);
+			if (current.get_group() != 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cin.ignore();
+				printf("Enter the position of the new vacancy");
+				getline(cin, posIn);
+				printf("Enter the discription of the new vacancy");
+				getline(cin, disIn);
+				newVacancy(vacList, posIn, disIn);
+			}
 			break;
 
 
 
 		case 'C': // joins a course
-			cout << "Enter Your ID: ";
-			cin >> numInput;
-			cout << "Enter the Title of the course: ";
-			cin >> sInput[0];
-			joinCourse(courseList, sInput[0], numInput);
-			userJoinCourse(userList, sInput[0], numInput);
+			if (current.get_group() == 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter Your ID: ";
+				cin >> numInput;
+				cin.clear();
+				cout << "Enter the Title of the course: ";
+				cin >> sInput[0];
+				cin.clear();
+				joinCourse(courseList, sInput[0], numInput);
+				userJoinCourse(userList, sInput[0], numInput);
+			}
 			break;
 
 
@@ -169,34 +211,61 @@ void main()
 
 
 		case 'E': // creates a new user
-			cout << "Enter the new student's ID: ";
-			cin >> numInput;
-			cout << "Enter the new student's password: ";
-			cin >> sInput[1];
-			cout << "Enter the new student's first name: ";
-			cin >> sInput[2];
-			cout << "Enter the new student's last name: ";
-			cin >> sInput[3];
-			cout << "Enter the new students permissions (A = Admin, F = Faculty, S = Student): ";
-			cin >> cInput;
-			newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
+			if (current.get_group() != 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the new student's ID: ";
+				cin >> numInput;
+				cin.clear();
+				cout << "Enter the new student's password: ";
+				cin >> sInput[1];
+				cin.clear();
+				cout << "Enter the new student's first name: ";
+				cin >> sInput[2];
+				cin.clear();
+				cout << "Enter the new student's last name: ";
+				cin >> sInput[3];
+				cin.clear();
+				cout << "Enter the new students permissions (A = Admin, F = Faculty, S = Student): ";
+				cin >> cInput;
+				cin.clear();
+				newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
+			}
 			break;
 
 
 
 		case 'F': // Removes a user
-			cout << "Enter the ID of the student you would like to remove: ";
-			cin >> numInput;
-			removeUser(userList, numInput);
+			if (current.get_group() != 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the ID of the student you would like to remove: ";
+				cin >> numInput;
+				cin.clear();
+				removeUser(userList, numInput);
+			}
 			break;
 
 
 
 		case 'G': // Removes a vacancy
-			cout << "Enter the position of the vacancy you would like to remove: ";
-			cin.ignore();
-			getline(cin, sInput[1]);
-			removeVacancy(vacList, sInput[1]);
+			if (current.get_group() != 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the position of the vacancy you would like to remove: ";
+				cin.ignore();
+				getline(cin, sInput[1]);
+				removeVacancy(vacList, sInput[1]);
+			}
 			break;
 
 
