@@ -110,7 +110,7 @@ void main()
 
 
 		case '6': // Takes a user submission
-			if (current.get_group() == 'S')
+			if (current.get_group() != 'F')
 			{
 				cout << "You do not have permission to do this. How did you even get here?" << endl;
 			}
@@ -182,7 +182,7 @@ void main()
 
 
 		case 'C': // joins a course
-			if (current.get_group() == 'S')
+			if (current.get_group() != 'F')
 			{
 				cout << "You do not have permission to do this. How did you even get here?" << endl;
 			}
