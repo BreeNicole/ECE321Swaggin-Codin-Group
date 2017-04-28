@@ -271,6 +271,7 @@ void take_attendence(list<course> courses, user current)
 		size_t pos = 0;
 		string buffer = current.get_classList();
 		int i = 0;
+		cout << current.get_classList();
 		while ((pos = buffer.find("|")) != string::npos && i < 5)
 		{
 			token = buffer.substr(0, pos);
@@ -280,97 +281,100 @@ void take_attendence(list<course> courses, user current)
 		}
 		courseRead[i] = buffer;
 
-list<course>::iterator it;
-int storeAtt[30];
-bool loop = true;
-do
-{
-cout << "Enter the name of the course you are taking attendence for: ";
-string read;
-bool found = false;
-cin >> read;
-for (int i = 0; i < 5; i++)
-{
-if (read == "Exit")
-{
-	return;
-}
-if (read == courseRead[i])
-{
-	found = true;
-	break;
-}
-}
-if (found)
-{
-	for (it = courses.begin(); it != courses.end(); ++it)
-	{
-		if (it->get_title() == read)
-		{
-			loop = false;
-			break;
-		}
-	}
-}
-cout << "Invalid course title. Type Exit to leave." << endl;
-} while (loop);
-//int * currentAtt = parseAtt(it->get_attendance());
-
-
-int output[30];
-pos = 0;
-i = 0;
-buffer = it->get_attendance();
-while ((pos = buffer.find("|")) != string::npos && i < 30)
-{
-	token = buffer.substr(0, pos);
-	output[i] = stoi(token);
-	buffer.erase(0, pos + 1);
-	++i;
-}
-//output[i] = stoi(input);
-if (i != 29)
-{
-	output[i] = NULL;
-}
-
-
-for (i = 0; i < 30 && output[i] != NULL; i++)
-{
-	int readInt;
+	list<course>::iterator it;
+	int storeAtt[30];
+	bool loop = true;
 	do
 	{
-		cout << "Is " << output[i] << " present (1 = Yes, 0 = No): ";
-		cin >> readInt;
-		if (readInt == 1 || readInt == 0)
+		cout << "Enter the name of the course you are taking attendence for: ";
+		string read;
+		bool found = false;
+		cin >> read;
+		for (int i = 0; i < 5; i++)
 		{
-			storeAtt[i] = readInt;
-			break;
+			if (read == "Exit")
+			{
+				return;
+			}
+			if (read == courseRead[i])
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found)
+		{
+			for (it = courses.begin(); it != courses.end(); ++it)
+			{
+				if (it->get_title() == read)
+				{
+					loop = false;
+					break;
+				}
+			}
 		}
 		else
 		{
-			cout << "Invalid input" << endl;
+			cout << "Invalid course title. Type Exit to leave." << endl;
 		}
-	} while (1);
-}
-ofstream outfile;
-string file = ((it->get_title()) + ("_attendance.txt"));
-outfile.open(file, ios_base::app);
-if (!outfile.good())
-{
-	cout << "File failed to open" << endl;
+	} while (loop);
+	//int * currentAtt = parseAtt(it->get_attendance());
+
+
+	int output[30];
+	pos = 0;
+	i = 0;
+	buffer = it->get_attendance();
+	while ((pos = buffer.find("|")) != string::npos && i < 30)
+	{
+		token = buffer.substr(0, pos);
+		output[i] = stoi(token);
+		buffer.erase(0, pos + 1);
+		++i;
+	}
+	//output[i] = stoi(input);
+	if (i != 29)
+	{
+		output[i] = NULL;
+	}
+
+
+	for (i = 0; i < 30 && output[i] != NULL; i++)
+	{
+		int readInt;
+		do
+		{
+			cout << "Is " << output[i] << " present (1 = Yes, 0 = No): ";
+			cin >> readInt;
+			if (readInt == 1 || readInt == 0)
+			{
+				storeAtt[i] = readInt;
+				break;
+			}
+			else
+			{
+				cout << "Invalid input" << endl;
+			}
+		} while (1);
+	}
+	ofstream outfile;
+	string file = ((it->get_title()) + ("_attendance.txt"));
+	outfile.open(file, ios_base::app);
+	if (!outfile.good())
+	{
+		cout << "File failed to open" << endl;
+		return;
+	}
+	time_t t = time(0);
+	struct tm * now = localtime(&t);
+	outfile << "----------------------------------------------" << endl << "DATE" << now->tm_mday << "-" << (now->tm_mon + 1) << "-" << (now->tm_year + 1900) << endl;
+	for (int j = 0; j < i; j++)
+	{
+		outfile << output[j] << (storeAtt[j] ? (" Present") : (" Not_Present")) << endl;
+	}
+	outfile << endl << endl;
+	outfile.close();
 	return;
-}
-time_t t = time(0);
-struct tm * now = localtime(&t);
-outfile << "----------------------------------------------" << endl << "DATE" << now->tm_mday << "-" << (now->tm_mon + 1) << "-" << (now->tm_year + 1900) << endl;
-for (int j = 0; j < i; j++)
-{
-	outfile << output[j] << (storeAtt[j] ? (" Present") : (" Not_Present")) << endl;
-}
-outfile << endl << endl;
-outfile.close();
-return;
 	}
 }
 
