@@ -19,10 +19,12 @@ void newUser(list<user>& userList, int ID, string password, string firstName, st
 {
 	userList.push_back(user(ID, password, firstName, lastName, "", group));
 }
+
 void newCourse(list<course>& courseList, string title)
 {
 	courseList.push_back(course(title));
 }
+
 void joinCourse(list<course>& courseList, string title, int ID)
 {
 	list<course>::iterator it;
@@ -32,9 +34,24 @@ void joinCourse(list<course>& courseList, string title, int ID)
 		{
 			it->setAttendance(it->get_attendance() + to_string(ID)+ "|");
 			cout << ID << " has joined " << title;
+			return;
 		}
 	}
 	cout << "Course not found" << endl;
+}
+
+void userJoinCourse(list<user>& userList, string title, int ID)
+{
+	list<user>::iterator it;
+	for (it = userList.begin(); it != userList.end(); ++it)
+	{
+		if (it->get_ID() == ID)
+		{
+			it->set_classList(it->get_classList() + title + "|");
+			return;
+		}
+	}
+	cout << "ID not found" << endl;
 }
 
 void removeVacancy(list<vacancy>& vacList, string del)
