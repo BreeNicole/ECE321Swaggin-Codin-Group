@@ -19,13 +19,13 @@ void main()
 	list<user> userList = readUsers();
 	list<vacancy> vacList = readVacs();
 	list<course> courseList = readCourses();
+	user current;
 	
 	int program = 0;
 	string posIn, disIn;
 	while (program == 0)
 	{
-		//program = logIn(list<user>);
-		//user current = new user(logIn)
+		user current = logIn(userList, program);
 		program =1;
 	}
 
@@ -39,15 +39,15 @@ void main()
 		cout << "1: Print users" << endl;
 		cout << "2: Save and Exit" << endl;
 		cout << "3: View Timetable (in progress)" << endl;
-		cout << "4: View your attendance (in progress)" << endl;
-		cout << "5: View all attendance (in progress)" << endl;
-		cout << "6: Submit assignment (in progress)" << endl;
-		cout << "7: View Vacancies (in progress)" << endl;
-		cout << "8: Input attendance (in progress) [This function is currently acting as exit without saving for testing]" << endl;
+		cout << "4: View your attendance" << endl;
+		cout << "5: View all attendance" << endl;
+		cout << "6: Submit assignment" << endl;
+		cout << "7: View Vacancies" << endl;
+		cout << "8: Create a new course" << endl;
 		cout << "9: Update Timetable (in progress)" << endl;
-		cout << "A: Update attendance (in progress)" << endl;
+		cout << "A: Take attendance" << endl;
 		cout << "B: Post vacancy" << endl;
-		cout << "C: View details of student (in progress)" << endl;
+		cout << "C: Join a class" << endl;
 		cout << "D: Print Vacanies" << endl;
 		cout << "E: Add a new student" << endl;
 		cout << "F: Remove an existing student" << endl;
@@ -59,106 +59,116 @@ void main()
 		while (isspace(input));
 		cin.clear();
 		list <user>::iterator it = userList.begin();
-		int numInput;
+		int numInput = 0;
 		char cInput;
-		string sInput[5];
-		user bill;
-		for (list<user>::iterator it = userList.begin(); it != userList.end(); it++)
-		{
-
-			if (it->get_ID() == 1234)
-			{
-				bill = *it;
-			}
-		}
+		string sInput[5] = { "","","","","" };
 
 		switch (input) {
 
-		case '1':
-			printf("Run Function 1\n"); // Right now it just prints the first entry in the list
+		case '1': // Prints the userlist
 			for (list<user>::iterator it = userList.begin(); it != userList.end(); ++it)
 			{
 				cout << it->get_ID() << " ID\n" << it->get_password() << " password\n" << it->get_firstName() << " First\n" << it->get_lastName() << " Last\n" << it->get_group() << endl;
 			}
 			break;
 
-		case '2':
-			printf("Run Function 2\n"); //Logout, save, and exit
+
+
+		case '2': //save and logout
 			saveUsers(userList);
 			saveVacs(vacList);
 			saveCourse(courseList);
 			program = 0;
 			break;
 
+
+
 		case '3':
-			printf("Run Function 3\n"); //View Timetable (student)
 			break;
 
-		case '4':
-			printf("Run Function 4\n"); //View Personal Attendance (student)
-			printAttendence(courseList, "ECE321", 852442102);
-			//Takes the user input and allows them to view their personal attendance
+
+
+		case '4': // prints attendance for the user
+			cout << "Enter the name of the class you are taking attendece for"; 
+			cin >> sInput[0];
+			printAttendence(courseList, sInput[0], current.get_ID());
 			break;
 
-		case '5':
-			printf("Run Function 5\n"); //View all attendance (student)
-			//ViewAllAttend();
-			// will take the class the user inputs and run the attendance function
+
+
+		case '5': // prints attendance for a student
+			cout << "Enter the name of the class you are taking attendece for: ";
+			cin >> sInput[0];
+			cout << "Enter the ID of the student you want to view: ";
+			cin >> numInput;
+			printAttendence(courseList, sInput[0], numInput);
 			break;
 
-		case '6':
-			printf("Run Function 6\n"); //View Submissions (student)
-			takeSubmission(bill);
+
+
+		case '6': // Takes a user submission
+			takeSubmission(current);
 			break;
 
-		case '7':
-			printf("Run Function 7\n"); //View Vacancies (student)
-			cout << "Starting to print all available vacanies.....\n Please Wait...\n" << endl;
+
+
+		case '7': // Prints all vacancies
 			readVacs();
 			break;
 
-		case '8':
-			printf("Run Function 8\n"); //Input Student Attendance (Faculty)
-			program = 0;
+
+
+		case '8': // creates a new course
+			cout << "Enter the Title of the new course: ";
+			cin >> sInput[0];
+			newCourse(courseList, sInput[0]);
 			break;
 
+
+
 		case '9':
-			printf("Run Function 9\n"); //Update Timetable (Admin)
-			//void StoreTimetable();
 			break;
-		case 'A':
-			
-			printf("Run Function A\n"); //Update Student Attendance (Faculty)
-			
-			take_attendence(courseList, bill);
+
+
+
+		case 'A': // Takes attendence
+			take_attendence(courseList, current);
 			break;
 			
-		case 'B':
-			printf("Run Function B\n"); //Post vacancies (Admin)
+
+
+		case 'B': //Post a new vacancy
 			cin.ignore();
 			printf("Enter the position of the new vacancy");
 			getline(cin,posIn);
 			printf("Enter the discription of the new vacancy");
 			getline(cin,disIn);
 			newVacancy(vacList, posIn, disIn);
-
 			break;
 
-		case 'C':
-			printf("Run Function C\n"); //view Details of students (Faculty)
+
+
+		case 'C': // joins a course
+			cout << "Enter Your ID: ";
+			cin >> numInput;
+			cout << "Enter the Title of the course: ";
+			cin >> sInput[0];
+			joinCourse(courseList, sInput[0], numInput);
+			userJoinCourse(userList, sInput[0], numInput);
 			break;
 
-		case 'D':
-			printf("Run Function D\n");
 
+
+		case 'D': // prints all vacancies
 			for (list<vacancy>::iterator it = vacList.begin(); it != vacList.end(); ++it)
 			{
 				cout << it->get_position() << endl << it->get_description() << endl;
 			}
-
 			break;
 
-		case 'E':
+
+
+		case 'E': // creates a new user
 			cout << "Enter the new student's ID: ";
 			cin >> numInput;
 			cout << "Enter the new student's password: ";
@@ -172,21 +182,30 @@ void main()
 			newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
 			break;
 
-		case 'F':
+
+
+		case 'F': // Removes a user
 			cout << "Enter the ID of the student you would like to remove: ";
 			cin >> numInput;
 			removeUser(userList, numInput);
 			break;
 
-		case 'G':
+
+
+		case 'G': // Removes a vacancy
 			cout << "Enter the position of the vacancy you would like to remove: ";
 			cin.ignore();
 			getline(cin, sInput[1]);
 			removeVacancy(vacList, sInput[1]);
 			break;
 
-		case 'H':
-			changePassword(bill);
+
+
+		case 'H': //Changes curent users password
+			changePassword(current);
+			break;
+
+
 
 		default:
 			printf("Invalid input\n");
@@ -194,4 +213,3 @@ void main()
 		}
 	}
 }
-
