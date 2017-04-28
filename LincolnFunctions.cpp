@@ -7,6 +7,8 @@
 #include <iterator>
 #include <cstddef>
 #include <locale>
+#include <time.h>
+#pragma warning(disable : 4996)
 
 void newVacancy(list<vacancy>& vacList, string positionIn, string discriptionIn)
 {
@@ -261,95 +263,209 @@ void take_attendence(list<course> courses, user current)
 		}
 		courseRead[i] = buffer;
 
-		list<course>::iterator it;
-		int storeAtt[30];
-		bool loop = true;
-		do
+list<course>::iterator it;
+int storeAtt[30];
+bool loop = true;
+do
+{
+cout << "Enter the name of the course you are taking attendence for: ";
+string read;
+bool found = false;
+cin >> read;
+for (int i = 0; i < 5; i++)
+{
+if (read == "Exit")
+{
+	return;
+}
+if (read == courseRead[i])
+{
+	found = true;
+	break;
+}
+}
+if (found)
+{
+	for (it = courses.begin(); it != courses.end(); ++it)
+	{
+		if (it->get_title() == read)
 		{
-			cout << "Enter the name of the course you are taking attendence for: ";
-			string read;
-			bool found = false;
-			cin >> read;
-			for (int i = 0; i < 5; i++)
+			loop = false;
+			break;
+		}
+	}
+}
+cout << "Invalid course title. Type Exit to leave." << endl;
+} while (loop);
+//int * currentAtt = parseAtt(it->get_attendance());
+
+
+int output[30];
+pos = 0;
+i = 0;
+buffer = it->get_attendance();
+while ((pos = buffer.find("|")) != string::npos && i < 30)
+{
+	token = buffer.substr(0, pos);
+	output[i] = stoi(token);
+	buffer.erase(0, pos + 1);
+	++i;
+}
+//output[i] = stoi(input);
+if (i != 29)
+{
+	output[i] = NULL;
+}
+
+
+for (i = 0; i < 30 && output[i] != NULL; i++)
+{
+	int readInt;
+	do
+	{
+		cout << "Is " << output[i] << " present (1 = Yes, 0 = No): ";
+		cin >> readInt;
+		if (readInt == 1 || readInt == 0)
+		{
+			storeAtt[i] = readInt;
+			break;
+		}
+		else
+		{
+			cout << "Invalid input" << endl;
+		}
+	} while (1);
+}
+ofstream outfile;
+string file = ((it->get_title()) + ("_attendance.txt"));
+outfile.open(file, ios_base::app);
+if (!outfile.good())
+{
+	cout << "File failed to open" << endl;
+	return;
+}
+time_t t = time(0);
+struct tm * now = localtime(&t);
+outfile << "----------------------------------------------" << endl << "DATE" << now->tm_mday << "-" << (now->tm_mon + 1) << "-" << (now->tm_year + 1900) << endl;
+for (int j = 0; j < i; j++)
+{
+	outfile << output[j] << (storeAtt[j] ? (" Present") : (" Not_Present")) << endl;
+}
+outfile << endl << endl;
+outfile.close();
+return;
+	}
+}
+
+void printAttendence(list<course>, string courseTitle, int ID)
+{
+	ifstream infile;
+	string line;
+	size_t pos;
+	string date;
+	string file = (courseTitle + "_attendance.txt");
+	infile.open(file);
+	if (!infile.good())
+	{
+		cout << "File failed to open" << endl;
+		return;
+	}
+	while (infile.good())
+	{
+		getline(infile, line);
+		if ((pos) = line.find("DATE") != string::npos)
+		{
+			date = line.substr(pos + 3);
+		}
+		if ((pos) = line.find(to_string(ID)) != string::npos)
+		{
+			cout << date << " " << line << endl;
+		}
+	}
+	infile.close();
+}
+
+void takeSubmission(user current)
+{
+	cout << "Please enter the class you are submitting for: ";
+	string classname;
+	cin >> classname;
+
+	string courseRead[5];
+	string token;
+	size_t pos = 0;
+	string buffer = current.get_classList();
+	int i = 0;
+	while ((pos = buffer.find("|")) != string::npos && i < 5)
+	{
+		token = buffer.substr(0, pos);
+		courseRead[i] = token;
+		buffer.erase(0, pos + 1);
+		++i;
+	}
+	courseRead[i] = buffer;
+	bool found = false;
+	for (int i = 0; i < 5; ++i)
+	{
+		if (classname == courseRead[i])
+			found = true;
+	}
+	if (!found)
+	{
+		cout << "Course not found" << endl;
+		return;
+	}
+	cout << "Please enter the file name you would like to submit: ";
+	string filename;
+	cin >> filename;
+
+	ofstream outfile;
+	string file = ((classname) + ("_submissions.txt"));
+	outfile.open(file, ios_base::app);
+	if (!outfile.good())
+	{
+		cout << "File failed to open" << endl;
+		return;
+	}
+	outfile << filename << " Submitted by " << current.get_ID() << endl;
+	outfile.close();
+}
+
+void changePassword(user &current)
+{
+	string oldPass;
+	string newPass;
+	string newPassCheck;
+	cout << "Please enter your password: ";
+	cin >> oldPass;
+	while (1)
+	{
+		if (oldPass == current.get_password())
+		{
+			cout << "Please enter your new password: ";
+			cin >> newPass;
+			cout << "Please re enter your new password: ";
+			cin >> newPassCheck;
+			if(newPass != newPassCheck)
 			{
-				if (read == "Exit")
-				{
-					return;
-				}
-				if (read == courseRead[i])
-				{
-					found = true;
-					break;
-				}
+				cout << "The passwords did not match" << endl;
 			}
-			if (found)
+			else
 			{
-				for (it = courses.begin(); it != courses.end(); ++it)
-				{
-					if (it->get_title() == read)
-					{
-						loop = false;
-						break;
-					}
-				}
+				current.set_password(newPass);
+				cout << "Your password has been updated" << endl;
+				return;
 			}
-			cout << "Invalid course title. Type Exit to leave." << endl;
-		} while (loop);
-		//int * currentAtt = parseAtt(it->get_attendance());
-
-
-		int output[30];
-		pos = 0;
-		i = 0;
-		buffer = it->get_attendance();
-		while ((pos = buffer.find("|")) != string::npos && i < 30)
-		{
-			token = buffer.substr(0, pos);
-			output[i] = stoi(token);
-			buffer.erase(0, pos + 1);
-			++i;
 		}
-		//output[i] = stoi(input);
-		if (i != 29)
+		else if (oldPass == "Exit")
 		{
-			output[i] = NULL;
-		}
-
-
-		for (i = 0; i < 30 && output[i] != NULL; i++)
-		{
-			int readInt;
-			do
-			{
-				cout << "Is " << output[i] << " present (1 = Yes, 0 = No): ";
-				cin >> readInt;
-				if (readInt == 1 || readInt == 0)
-				{
-					storeAtt[i] = readInt;
-					break;
-				}
-				else
-				{
-					cout << "Invalid input" << endl;
-				}
-			} while (1);
-		}
-		ofstream outfile;
-		string file = ((it->get_title()) + ("_attendance.txt"));
-		outfile.open(file, ios_base::app);
-		if (!outfile.good())
-		{
-			cout << "File failed to open" << endl;
 			return;
 		}
-		outfile << "----------------------------------------------" << endl << endl;
-		for (int j = 0; j < i; j++)
+		else
 		{
-			outfile << output[j] << (storeAtt[j] ? (" Present") : (" Not_Present")) << endl;
+			cout << "Incorrect password, type Exit to leave" << endl << "Please enter your new password: ";
+			cin >> oldPass;
 		}
-		outfile << endl << endl;
-		outfile.close();
-		return;
 	}
 }
 
