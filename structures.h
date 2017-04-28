@@ -18,6 +18,10 @@ public:
 	{
 		setUser(a, b, c, d, e, f);
 	}
+  user::user()
+  {
+	  ID = 0;
+  }
   void setUser(int a, string b, string c, string d, string e, char f)
   {
     ID = a;
@@ -51,22 +55,34 @@ public:
   {
 	  return classList;
   }
+  void set_password(string newPass)
+  {
+	  password = newPass;
+  }
+  void set_classList(string a)
+  {
+	  classList = a;
+  }
 };
 
 class course {
 	string title;
-	int attendance[30][2]; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
+	string attendance; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
 	string submission; // may change from string (I dont know how we want to deal with this)
 public:
-	course::course(string a, string b, int c[30][2])
+	course::course(string a, string b, string c)
 	{
 		setCourse(a, b, c);
 	}
-	void setCourse(string a, string b, int c[30][2])
+	course::course(string a)
 	{
 		title = a;
+	}
+	void setCourse(string a, string b, string c)
+	{
+		title = a;
+		attendance = c;
 		submission = b;
-		memcpy(c, attendance, sizeof(c));
 	}
 	string get_title()
 	{
@@ -76,23 +92,14 @@ public:
 	{
 		return submission;
 	}
-	int * get_attendance() // How would I return the whole array?
+	string get_attendance()
 	{
 		return attendance;
 	}
-	void get_course(int * setData)
+	void setAttendance(string a)
 	{
-		memcpy(attendance, &setData, sizeof(attendance));
+		attendance = a;
 	}
-  	int * setAttendance(class c, int *a) // Faculty function for their class attendance 
-  	{
-	   for(int i = 0; i < 30 && a[i][0] != NULL; i++)
-  	 {
-	   cout << "Was " << a[i][0] << "in class today? Press 1 for Present and 2 for Not Present. \n" << endl;
-	   cin << a[i][1];
-  	 }
-	  return a;
-  	}
 };
 
 class vacancy {
@@ -120,3 +127,4 @@ public:
 
 
 #endif // STRUCTURES_H_
+
