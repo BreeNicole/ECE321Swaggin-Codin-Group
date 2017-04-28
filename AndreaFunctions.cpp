@@ -23,6 +23,7 @@ void StoreTimetable()
 	}
 	cout << "Enter the month: ";
 	cin >> month;
+	cin.ignore();
 	while (outfile.is_open())
 	{
 		if (month == "January" || month == "February" || month == "March" || month == "April" || month == "May" || month == "June" || month == "July" || month == "August" || month == "September" || month == "October" || month == "November" || month == "December")
@@ -33,10 +34,12 @@ void StoreTimetable()
 		{
 			cout << "You entered an invalid month. Please try again." << endl;
 			cin >> month;
+			cin.ignore();
 		}
 	}
 	cout << "Enter the day: ";
 	cin >> day;
+	cin.ignore();
 	while (day != NULL)
 	{
 		if (day > 0 || day <= 31)
@@ -47,10 +50,12 @@ void StoreTimetable()
 		{
 			cout << "You entered an invalid day. Please try again." << endl;
 			cin >> day;
+			cin.ignore();
 		}
 	}
 	cout << "Enter the time in military time (exclude the colon): ";
 	cin >> testtime;
+	cin.ignore();
 	while (testtime != NULL)
 	{
 		if (testtime >= 0000 || testtime <= 2359)
@@ -61,10 +66,12 @@ void StoreTimetable()
 		{
 			cout << "You entered an invalid test time. Please try again." << endl;
 			cin >> testtime;
+			cin.ignore();
 		}
 	}
 	cout << "Enter the name of the class: ";
 	cin >> class_name;
+	cin.ignore();
 
 	outfile << month << "/" << day << "/" << testtime << "/" << class_name << endl;
 	outfile.close();
