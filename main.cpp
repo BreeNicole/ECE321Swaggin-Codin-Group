@@ -41,7 +41,7 @@ void main()
 		cout << "3: View Timetable (in progress)" << endl;
 		cout << "4: View your attendance (in progress)" << endl;
 		cout << "5: View all attendance (in progress)" << endl;
-		cout << "6: View submissions (in progress)" << endl;
+		cout << "6: Submit assignment (in progress)" << endl;
 		cout << "7: View Vacancies (in progress)" << endl;
 		cout << "8: Input attendance (in progress) [This function is currently acting as exit without saving for testing]" << endl;
 		cout << "9: Update Timetable (in progress)" << endl;
@@ -52,7 +52,8 @@ void main()
 		cout << "E: Add a new student" << endl;
 		cout << "F: Remove an existing student" << endl;
 		cout << "G: Remove a current vacancy posting" << endl;
-		printf("Enter your choice: ");
+		cout << "H: Change Password" << endl;
+		cout << "Enter your choice: ";
 		do
 		cin >> input;
 		while (isspace(input));
@@ -95,7 +96,7 @@ void main()
 
 		case '4':
 			printf("Run Function 4\n"); //View Personal Attendance (student)
-			//ViewSelfAttend();
+			printAttendence(courseList, "ECE321", 852442102);
 			//Takes the user input and allows them to view their personal attendance
 			break;
 
@@ -107,6 +108,7 @@ void main()
 
 		case '6':
 			printf("Run Function 6\n"); //View Submissions (student)
+			takeSubmission(bill);
 			break;
 
 		case '7':
@@ -182,6 +184,10 @@ void main()
 			getline(cin, sInput[1]);
 			removeVacancy(vacList, sInput[1]);
 			break;
+
+		case 'H':
+			changePassword(bill);
+
 		default:
 			printf("Invalid input\n");
 
