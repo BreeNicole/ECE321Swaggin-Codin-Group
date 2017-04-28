@@ -17,5 +17,8 @@ void removeVacancy(list<vacancy>& vacList, string del);
 void removeUser(list<user>& userList, int ID);
 void saveVacs(list<vacancy> saveVac);
 void take_attendence(list<course> courses, user current);
+void printAttendence(list<course>, string courseTitle, int ID);
+void takeSubmission(user current);
+void changePassword(user &current);
 
 #endif // LINCOLNFUNCTIONS_H_
