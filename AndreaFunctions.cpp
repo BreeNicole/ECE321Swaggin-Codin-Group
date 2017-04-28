@@ -4,8 +4,6 @@
 #include <fstream>
 #include <iomanip>
 #include <string>
-#include <list>
-#include <iterator>
 using namespace std;
 
 void StoreTimetable()
@@ -14,7 +12,6 @@ void StoreTimetable()
 	int day;
 	int testtime; //military time, no colon
 	string class_name;
-	string description;
 
 	ofstream outfile;
 	outfile.open("TimeTable.txt", ofstream::app);
@@ -68,20 +65,19 @@ void StoreTimetable()
 	}
 	cout << "Enter the name of the class: ";
 	cin >> class_name;
-	cout << "Enter short description, no spaces (ex. Exam1): ";
-	cin >> description;
-	
-	outfile << month << "/" << day << "/" << testtime << "/" << class_name << "/" << description << endl;
+
+	outfile << month << "/" << day << "/" << testtime << "/" << class_name << endl;
 	outfile.close();
 	cout << "Success!" << endl;
 };
 
 void ViewTimetable()
 {
-	string dataArray[6];
+	string dataArray[5];
 	string info;
 	size_t pos = 0;
 	string line;
+	string dataSix;
 	int i = 0;
 
 	ifstream infile;
@@ -103,8 +99,8 @@ void ViewTimetable()
 		i = 0;
 		int dataOne = atoi(dataArray[1].c_str());
 		int dataTwo = atoi(dataArray[2].c_str());
-		char dataSix = line[0];
-		cout << dataArray[0] << "/" << dataOne << "/" << dataTwo << "/" << dataArray[3] << "/" << dataArray[4] << "/" << dataArray[5] << "/" << dataSix << endl;
+		string dataFive = line;
+		cout << dataArray[0] << "/" << dataOne << "/" << dataTwo << "/" << dataArray[3] << dataArray[4] << dataFive << endl;
 	}
 	infile.close();
 };
