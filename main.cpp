@@ -25,7 +25,7 @@ void main()
 	string posIn, disIn;
 	while (program == 0)
 	{
-		user current = logIn(userList, program);
+		current = logIn(userList, program);
 		program =1;
 	}
 
