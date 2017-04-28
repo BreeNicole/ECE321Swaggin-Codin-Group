@@ -84,6 +84,7 @@ void main()
 
 
 		case '3': //View Timetable
+			ViewTimetable();
 			break;
 
 
@@ -106,7 +107,6 @@ void main()
 			cin.clear();
 			printAttendence(courseList, sInput[0], numInput);
 			break;
-
 
 
 		case '6': // Takes a user submission
@@ -148,6 +148,7 @@ void main()
 				cout << "You do not have permission to do this. How did you even get here?" << endl;
 			}
 			else
+				StoreTimetable();
 			break;
 
 
