@@ -290,6 +290,7 @@ void take_attendence(list<course> courses, user current)
 		string read;
 		bool found = false;
 		cin >> read;
+		cin.ignore();
 		for (int i = 0; i < 5; i++)
 		{
 			if (read == "Exit")
@@ -346,6 +347,7 @@ void take_attendence(list<course> courses, user current)
 		{
 			cout << "Is " << output[i] << " present (1 = Yes, 0 = No): ";
 			cin >> readInt;
+			cin.ignore();
 			if (readInt == 1 || readInt == 0)
 			{
 				storeAtt[i] = readInt;
@@ -411,6 +413,7 @@ void takeSubmission(user current)
 	cout << "Please enter the class you are submitting for: ";
 	string classname;
 	cin >> classname;
+	cin.ignore();
 
 	string courseRead[5];
 	string token;
@@ -439,6 +442,7 @@ void takeSubmission(user current)
 	cout << "Please enter the file name you would like to submit: ";
 	string filename;
 	cin >> filename;
+	cin.ignore();
 
 	ofstream outfile;
 	string file = ((classname) + ("_submissions.txt"));
@@ -459,14 +463,17 @@ void changePassword(user &current)
 	string newPassCheck;
 	cout << "Please enter your password: ";
 	cin >> oldPass;
+	cin.ignore();
 	while (1)
 	{
 		if (oldPass == current.get_password())
 		{
 			cout << "Please enter your new password: ";
 			cin >> newPass;
+			cin.ignore();
 			cout << "Please re enter your new password: ";
 			cin >> newPassCheck;
+			cin.ignore();
 			if(newPass != newPassCheck)
 			{
 				cout << "The passwords did not match" << endl;
@@ -486,6 +493,7 @@ void changePassword(user &current)
 		{
 			cout << "Incorrect password, type Exit to leave" << endl << "Please enter your new password: ";
 			cin >> oldPass;
+			cin.ignore();
 		}
 	}
 }
