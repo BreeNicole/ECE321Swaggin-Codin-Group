@@ -42,15 +42,44 @@ void StoreTimetable()
 	cin.ignore();
 	while (day != NULL)
 	{
-		if (day > 0 || day <= 31)
+		if(month == February)
 		{
-			break;
+			if (day > 0 || day <= 28) //this ensures that you entered a valid day for February, ignoring the chance of it being a leap year
+			{
+				break;
+			}
+			else
+			{
+				cout << "You entered an invalid day. Please try again." << endl;
+				cin >> day;
+				cin.ignore();
+			}
+		}
+		else if (month == January || month == March || month == May || month == July || month == August || month == October || month == December)
+		{
+			if (day > 0 || day <= 31) //this ensures that you entered a valid day for months with 31 days
+			{
+				break;
+			}
+			else
+			{
+				cout << "You entered an invalid day. Please try again." << endl;
+				cin >> day;
+				cin.ignore();
+			}
 		}
 		else
 		{
-			cout << "You entered an invalid day. Please try again." << endl;
-			cin >> day;
-			cin.ignore();
+			if (day > 0 || day <= 30) //this ensures that you entered a valid day for months with 30 days
+			{
+				break;
+			}
+			else
+			{
+				cout << "You entered an invalid day. Please try again." << endl;
+				cin >> day;
+				cin.ignore();
+			}
 		}
 	}
 	cout << "Enter the time in military time (exclude the colon): ";
