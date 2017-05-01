@@ -28,7 +28,7 @@ void main()
 	while (choice == 0)
 	{
 		cout << "Please select what you would like to do" << endl;
-		cout << "1: View Timetable (in progress)" << endl;
+		cout << "1: View Timetable" << endl;
 		cout << "2: Log In" << endl;
 		cout << "3. Save and Exit" << endl;
 		cin >> subChoice;
@@ -63,7 +63,7 @@ void main()
 			char group = current.get_group();
 			if (group == 'S' || group == 's' || group == 'F' || group == 'f' || group == 'A' || group == 'a')
 			{
-				cout << "1: View Timetable (in progress)" << endl;
+				cout << "1: View Timetable" << endl;
 				cout << "2. Save and Exit" << endl;
 				cout << "3: View your attendance" << endl;
 				cout << "4: Submit assignment" << endl;
@@ -76,7 +76,7 @@ void main()
 			{
 				cout << "9: Print users" << endl;
 				cout << "A: Create a new course" << endl;
-				cout << "B: Update Timetable (in progress)" << endl;
+				cout << "B: Update Timetable" << endl;
 				cout << "C: Take attendance" << endl;
 				cout << "D: Post vacancy" << endl;
 				cout << "E: Remove a current vacancy posting" << endl;
@@ -244,19 +244,19 @@ void main()
 				}
 				else
 				{
-					cout << "Enter the new student's ID: ";
+					cout << "Enter the new user's ID: ";
 					cin >> numInput;
 					cin.clear();
-					cout << "Enter the new student's password: ";
+					cout << "Enter the new user's password: ";
 					cin >> sInput[1];
 					cin.clear();
-					cout << "Enter the new student's first name: ";
+					cout << "Enter the new user's first name: ";
 					cin >> sInput[2];
 					cin.clear();
-					cout << "Enter the new student's last name: ";
+					cout << "Enter the new user's last name: ";
 					cin >> sInput[3];
 					cin.clear();
-					cout << "Enter the new students permissions (A = Admin, F = Faculty, S = Student): ";
+					cout << "Enter the new user's permissions (A = Admin, F = Faculty, S = Student): ";
 					cin >> cInput;
 					cin.clear();
 					newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
