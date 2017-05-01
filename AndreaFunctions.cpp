@@ -8,15 +8,15 @@ using namespace std;
 
 void StoreTimetable()
 {
-	string month;
-	int day;
+	string month; //month of the exam
+	int day; //day of the exam
 	int testtime; //military time, no colon
-	string class_name;
+	string class_name; //name of the class
 
 	ofstream outfile;
 	outfile.open("TimeTable.txt", ofstream::app);
 
-	if (!outfile.is_open())
+	if (!outfile.is_open()) //this will stop the function if the file couldn't be opened
 	{
 		cout << "Error. Could not open file." << endl;
 		return;
@@ -24,7 +24,7 @@ void StoreTimetable()
 	cout << "Enter the month: ";
 	cin >> month;
 	cin.ignore();
-	while (outfile.is_open())
+	while (outfile.is_open()) //this makes sure you actually entered the name of a month
 	{
 		if (month == "January" || month == "February" || month == "March" || month == "April" || month == "May" || month == "June" || month == "July" || month == "August" || month == "September" || month == "October" || month == "November" || month == "December")
 		{
@@ -58,7 +58,7 @@ void StoreTimetable()
 	cin.ignore();
 	while (testtime != NULL)
 	{
-		if (testtime >= 0000 || testtime <= 2359)
+		if (testtime >= 0000 || testtime <= 2359) //ensures the user entered a valid time
 		{
 			break;
 		}
@@ -89,7 +89,7 @@ void ViewTimetable()
 
 	ifstream infile;
 	infile.open("TimeTable.txt", ifstream::in | ifstream::out);
-	if (!infile.is_open())
+	if (!infile.is_open()) //exits the function if the file didn't open
 	{
 		cout << "Error. Could not open file." << endl;
 		return;
