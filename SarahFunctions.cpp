@@ -4,29 +4,34 @@
 #include <iterator>
 #include <string>
 
-user logIn(list<user> userlist, int *prog)
+user logIn(list<user> userlist, int &prog)
 {
 	int queryID;
 	string queryPass;
 	string pass;
 	int ID;
-	cout << "Please enter your ID: ";
-	cin >> queryID;
-	cout << "Please enter your password:  ";
-	cin >> queryPass;
-
-	for (list<user>::iterator it = userlist.begin(); it != userlist.end(); ++it)
+	while (prog == 0)
 	{
-		ID = it->get_ID();
-		pass = it->get_password();
-		if (ID == queryID && pass == queryPass)
+		cout << "Please enter your ID: ";
+		cin >> queryID;
+		cin.clear();
+		cout << "Please enter your password:  ";
+		cin >> queryPass;
+		cin.clear();
+
+		for (list<user>::iterator it = userlist.begin(); it != userlist.end(); ++it)
 		{
-			cout << "Valid login" << endl;
-			*prog = 1;
-			return *it;
+			ID = it->get_ID();
+			pass = it->get_password();
+			if (ID == queryID && pass == queryPass)
+			{
+				cout << "Valid login" << endl;
+				prog = 1;
+				return *it;
+			}
+
 		}
+		cout << "Invalid Username/Password" << endl;
 
 	}
-	cout << "Invalid Username/Password" << endl;
-	*prog = 0;
 }
