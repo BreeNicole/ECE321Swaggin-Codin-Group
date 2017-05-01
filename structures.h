@@ -12,7 +12,7 @@ class user {
   string firstName;
   string lastName;
   string classList; //Will store the class list for the student
-  char group; // S (student), F (faculty)
+  char group; // S (student), F (faculty), A (admin)
 public:
   user::user(int a, string b, string c, string d, string e, char f)
 	{
@@ -68,29 +68,23 @@ public:
 class course {
 	string title;
 	string attendance; // ID number goes in the first column, then it will say 1 for present or 2 for not present in the 2nd column
-	string submission; // may change from string (I dont know how we want to deal with this)
 public:
-	course::course(string a, string b, string c)
+	course::course(string a, string b)
 	{
-		setCourse(a, b, c);
+		setCourse(a, b);
 	}
 	course::course(string a)
 	{
 		title = a;
 	}
-	void setCourse(string a, string b, string c)
+	void setCourse(string a, string b)
 	{
 		title = a;
-		attendance = c;
-		submission = b;
+		attendance = b;
 	}
 	string get_title()
 	{
 		return title;
-	}
-	string get_submission()
-	{
-		return submission;
 	}
 	string get_attendance()
 	{
