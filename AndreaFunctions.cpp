@@ -42,7 +42,7 @@ void StoreTimetable()
 	cin.ignore();
 	while (day != NULL)
 	{
-		if(month == February)
+		if(month == "February")
 		{
 			if (day > 0 || day <= 28) //this ensures that you entered a valid day for February, ignoring the chance of it being a leap year
 			{
@@ -55,7 +55,7 @@ void StoreTimetable()
 				cin.ignore();
 			}
 		}
-		else if (month == January || month == March || month == May || month == July || month == August || month == October || month == December)
+		else if (month == "January" || month == "March" || month == "May" || month == "July" || month == "August" || month == "October" || month == "December")
 		{
 			if (day > 0 || day <= 31) //this ensures that you entered a valid day for months with 31 days
 			{
