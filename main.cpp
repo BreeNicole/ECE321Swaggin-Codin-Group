@@ -15,7 +15,6 @@ using namespace std;
 
 void main()
 {
-	cout << "This is the best program, all others are bad" << endl;
 	list<user> userList = readUsers();
 	list<vacancy> vacList = readVacs();
 	list<course> courseList = readCourses();
@@ -25,7 +24,7 @@ void main()
 	string posIn, disIn;
 	int choice = 0;
 	string subChoice;
-	while (choice == 0)
+	while (choice == 0) // Controls the initial "menu"
 	{
 		cin.clear();
 		cout << "Please select what you would like to do" << endl;
@@ -43,7 +42,7 @@ void main()
 		else if (subChoice == "3")
 			return;
 		else
-			cout << "Invalid input" << endl;
+			cout << "Invalid input! Please select an input from the menu!" << endl;
 
 	}
 		while (program == 0)
@@ -62,7 +61,7 @@ void main()
 
 
 			char group = current.get_group();
-			if (group == 'S' || group == 's' || group == 'F' || group == 'f' || group == 'A' || group == 'a')
+			if (group == 'S' || group == 's' || group == 'F' || group == 'f' || group == 'A' || group == 'a') // organized by each group, this will determine which parts of the menu are viewed
 			{
 				cout << "1: View Timetable" << endl;
 				cout << "2. Save and Exit" << endl;
@@ -99,13 +98,13 @@ void main()
 			char cInput;
 			string sInput[5] = { "", "", "", "", "" };
 			int val = 0;
-
-			if (input == "1")
+// These if and else if statements will control which function is being used
+			if (input == "1") // View the Time Table
 			{
 				ViewTimetable();
 				input = "";
 			}
-			else if (input == "2")
+			else if (input == "2") // Save and Exit Program
 			{
 				saveUsers(userList);
 				saveVacs(vacList);
@@ -113,7 +112,7 @@ void main()
 				program = 0;
 				input = "";
 			}
-			else if (input == "3")
+			else if (input == "3") // View Personal Attendance for a class
 			{
 				cout << "Enter the name of the class you are taking attendance for";
 				cin >> sInput[0];
@@ -121,7 +120,7 @@ void main()
 				printAttendence(courseList, sInput[0], current.get_ID());
 				input = "";
 			}
-			else if (input == "4")
+			else if (input == "4") // View the user Submission
 			{
 				if (current.get_group() != 'F' || current.get_group() != 'A' || current.get_group() != 'S')
 				{
@@ -131,12 +130,12 @@ void main()
 					takeSubmission(current);
 				input = "";
 			}
-			else if (input == "5")
+			else if (input == "5") // Read Vacanies
 			{
 				readVacs();
 				input = "";
 			}
-			else if (input == "6")
+			else if (input == "6") // Print Vacanies
 			{
 				for (list<vacancy>::iterator it = vacList.begin(); it != vacList.end(); ++it)
 				{
@@ -144,7 +143,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "7")
+			else if (input == "7") // View Attendance of a student
 			{
 				cout << "Enter the name of the class you are taking attendance for: ";
 				cin >> sInput[0];
@@ -155,7 +154,7 @@ void main()
 				printAttendence(courseList, sInput[0], numInput);
 				input = "";
 			}
-			else if (input == "8")
+			else if (input == "8") // Join a class
 			{
 				if (current.get_group() != 'F' || current.get_group() != 'A' || current.get_group() != 'S')
 				{
@@ -174,7 +173,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "9")
+			else if (input == "9") // Print the users
 			{
 				for (list<user>::iterator it = userList.begin(); it != userList.end(); ++it)
 				{
@@ -182,7 +181,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "A")
+			else if (input == "A") //Enter a new course
 			{
 				if (current.get_group() == 'S')
 				{
@@ -197,7 +196,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "B")
+			else if (input == "B") // Update a time in the Timetable
 			{
 				if (current.get_group() == 'S')
 				{
@@ -207,7 +206,7 @@ void main()
 					StoreTimetable();
 				input = "";
 			}
-			else if (input == "C")
+			else if (input == "C") // Take Attendance
 			{
 				if (current.get_group() == 'S')
 				{
@@ -217,7 +216,7 @@ void main()
 					take_attendence(courseList, current);
 				input = "";
 			}
-			else if (input == "D")
+			else if (input == "D") // Enter a new vacancy 
 			{
 				if (current.get_group() == 'S')
 				{
@@ -234,7 +233,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "E")
+			else if (input == "E") // Remove a vacancy
 			{
 				if (current.get_group() == 'S')
 				{
@@ -249,7 +248,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "F")
+			else if (input == "F") // New User 
 			{
 				if (current.get_group() != 'A')
 				{
@@ -257,26 +256,26 @@ void main()
 				}
 				else
 				{
-					cout << "Enter the new student's ID: ";
+					cout << "Enter the new user's ID: ";
 					cin >> numInput;
 					cin.clear();
-					cout << "Enter the new student's password: ";
+					cout << "Enter the new user's password: ";
 					cin >> sInput[1];
 					cin.clear();
-					cout << "Enter the new student's first name: ";
+					cout << "Enter the new user's first name: ";
 					cin >> sInput[2];
 					cin.clear();
-					cout << "Enter the new student's last name: ";
+					cout << "Enter the new user's last name: ";
 					cin >> sInput[3];
 					cin.clear();
-					cout << "Enter the new students permissions (A = Admin, F = Faculty, S = Student): ";
+					cout << "Enter the new user's permissions (A = Admin, F = Faculty, S = Student): ";
 					cin >> cInput;
 					cin.clear();
 					newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
 				}
 				input = "";
 			}
-			else if (input == "G")
+			else if (input == "G") // Remove a student
 			{
 				if (current.get_group() != 'A')
 				{
@@ -291,13 +290,13 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "H")
+			else if (input == "H") // change a password
 			{
 				changePassword(current);
 				input = "";
 			}
 			else
-				cout << "Invalid Input!"<< endl;
+				cout << "Invalid Input! Please select an input from the menu!"<< endl;
 
 
 
