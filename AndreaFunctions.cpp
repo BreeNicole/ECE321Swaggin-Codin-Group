@@ -123,13 +123,13 @@ void ViewTimetable()
 		cout << "Error. Could not open file." << endl;
 		return;
 	}
-	while (getline(infile, line))
+	while (getline(infile, line)) //this reads the file
 	{
-		while ((pos = line.find("/")) != string::npos)
+		while ((pos = line.find("/")) != string::npos) //when it reaches a / it stops reading
 		{
-			info = line.substr(0, pos);
+			info = line.substr(0, pos); //this stores the read info
 			dataArray[i] = info;
-			line.erase(0, pos + 1);
+			line.erase(0, pos + 1); //this deletes what was just read, plus the /
 			++i;
 		}
 		i = 0;
