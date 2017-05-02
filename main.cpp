@@ -59,9 +59,9 @@ void main()
 			disIn = "";
 			string input = "";
 
-
+			// organized by each group, this will determine which parts of the menu are shown for each group
 			char group = current.get_group();
-			if (group == 'S' || group == 's' || group == 'F' || group == 'f' || group == 'A' || group == 'a') // organized by each group, this will determine which parts of the menu are viewed
+			if (group == 'S' || group == 's' || group == 'F' || group == 'f' || group == 'A' || group == 'a')
 			{
 				cout << "1: View Timetable" << endl;
 				cout << "2. Save and Exit" << endl;
