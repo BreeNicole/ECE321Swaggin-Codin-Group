@@ -67,27 +67,26 @@ void main()
 				cout << "2. Save and Exit" << endl;
 				cout << "3: View your attendance" << endl;
 				cout << "4: Submit assignment" << endl;
-				cout << "5: View Vacancies" << endl;
-				cout << "6: Print Vacanies" << endl;
-				cout << "7: View all attendance" << endl;
-				cout << "8: Join a class" << endl;
+				cout << "5: Print Vacanies" << endl;
+				cout << "6: View all attendance" << endl;
+				cout << "7: Join a class" << endl;
 			}
 			if (group == 'F' || group == 'f' || group == 'A' || group == 'a')
 			{
-				cout << "9: Print users" << endl;
-				cout << "A: Create a new course" << endl;
-				cout << "B: Update Timetable" << endl;
-				cout << "C: Take attendance" << endl;
-				cout << "D: Post vacancy" << endl;
-				cout << "E: Remove a current vacancy posting" << endl;
+				cout << "8: Print users" << endl;
+				cout << "9: Create a new course" << endl;
+				cout << "A: Update Timetable" << endl;
+				cout << "B: Take attendance" << endl;
+				cout << "C: Post vacancy" << endl;
+				cout << "D: Remove a current vacancy posting" << endl;
 
 
 			}
 			if (group == 'A' || group == 'a')
 			{
-				cout << "F: Add a new student" << endl;
-				cout << "G: Remove an existing student" << endl;
-				cout << "H: Change Password" << endl;
+				cout << "E: Add a new student" << endl;
+				cout << "F: Remove an existing student" << endl;
+				cout << "G: Change Password" << endl;
 			}
 			cout << "Enter your choice: ";
 
@@ -130,12 +129,7 @@ void main()
 					takeSubmission(current);
 				input = "";
 			}
-			else if (input == "5") // Read Vacanies
-			{
-				readVacs();
-				input = "";
-			}
-			else if (input == "6") // Print Vacanies
+			else if (input == "5") // View Vacanies
 			{
 				for (list<vacancy>::iterator it = vacList.begin(); it != vacList.end(); ++it)
 				{
@@ -143,7 +137,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "7") // View Attendance of a student
+			else if (input == "6") // View Attendance of a student
 			{
 				cout << "Enter the name of the class you are taking attendance for: ";
 				cin >> sInput[0];
@@ -154,7 +148,7 @@ void main()
 				printAttendence(courseList, sInput[0], numInput);
 				input = "";
 			}
-			else if (input == "8") // Join a class
+			else if (input == "7") // Join a class
 			{
 				if (current.get_group() != 'F' || current.get_group() != 'A' || current.get_group() != 'S')
 				{
@@ -173,7 +167,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "9") // Print the users
+			else if (input == "8") // Print the users
 			{
 				for (list<user>::iterator it = userList.begin(); it != userList.end(); ++it)
 				{
@@ -181,7 +175,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "A") //Enter a new course
+			else if (input == "9") //Enter a new course
 			{
 				if (current.get_group() == 'S')
 				{
@@ -196,7 +190,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "B") // Update a time in the Timetable
+			else if (input == "A") // Update a time in the Timetable
 			{
 				if (current.get_group() == 'S')
 				{
@@ -206,7 +200,7 @@ void main()
 					StoreTimetable();
 				input = "";
 			}
-			else if (input == "C") // Take Attendance
+			else if (input == "B") // Take Attendance
 			{
 				if (current.get_group() == 'S')
 				{
@@ -216,7 +210,7 @@ void main()
 					take_attendence(courseList, current);
 				input = "";
 			}
-			else if (input == "D") // Enter a new vacancy 
+			else if (input == "C") // Enter a new vacancy 
 			{
 				if (current.get_group() == 'S')
 				{
@@ -233,7 +227,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "E") // Remove a vacancy
+			else if (input == "D") // Remove a vacancy
 			{
 				if (current.get_group() == 'S')
 				{
@@ -248,7 +242,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "F") // New User 
+			else if (input == "E") // New User 
 			{
 				if (current.get_group() != 'A')
 				{
@@ -275,7 +269,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "G") // Remove a student
+			else if (input == "F") // Remove a student
 			{
 				if (current.get_group() != 'A')
 				{
@@ -290,7 +284,7 @@ void main()
 				}
 				input = "";
 			}
-			else if (input == "H") // change a password
+			else if (input == "G") // change a password
 			{
 				changePassword(current);
 				input = "";
