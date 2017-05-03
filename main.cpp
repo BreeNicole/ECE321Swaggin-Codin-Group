@@ -18,7 +18,7 @@ void main()
 	list<user> userList = readUsers();
 	list<vacancy> vacList = readVacs();
 	list<course> courseList = readCourses();
-	user current;
+	user *current = NULL;
 
 	int program = 0;
 	string posIn, disIn;
@@ -45,258 +45,250 @@ void main()
 			cout << "Invalid input! Please select an input from the menu!" << endl;
 
 	}
-		while (program == 0)
+	while (program == 0)
+	{
+		current = logIn(userList, program);
+		program = 1;
+	}
+
+
+	while (program == 1)
+	{
+		cin.clear();
+		posIn = "";
+		disIn = "";
+		string input = "";	// organized by each group, this will determine which parts of the menu are shown for each group
+		char group = (*current).get_group();
+		if (group == 'S' || group == 's' || group == 'F' || group == 'f' || group == 'A' || group == 'a')
 		{
-			current = logIn(userList, program);
-			program = 1;
+			cout << "1: View Timetable" << endl;
+			cout << "2. Save and Exit" << endl;
+			cout << "3: View your attendance" << endl;
+			cout << "4: Submit assignment" << endl;
+			cout << "5: Print Vacanies" << endl;
+			cout << "6: View all attendance" << endl;
+			cout << "7: Join a class" << endl;
 		}
-
-
-		while (program == 1)
+		if (group == 'F' || group == 'f' || group == 'A' || group == 'a')
 		{
-			cin.clear();
-			posIn = "";
-			disIn = "";
-			string input = "";
+			cout << "8: Print users" << endl;
+			cout << "9: Create a new course" << endl;
+			cout << "A: Update Timetable" << endl;
+			cout << "B: Take attendance" << endl;
+			cout << "C: Post vacancy" << endl;
+			cout << "D: Remove a current vacancy posting" << endl;
 
-			// organized by each group, this will determine which parts of the menu are shown for each group
-			char group = current.get_group();
-			if (group == 'S' || group == 's' || group == 'F' || group == 'f' || group == 'A' || group == 'a')
-			{
-				cout << "1: View Timetable" << endl;
-				cout << "2. Save and Exit" << endl;
-				cout << "3: View your attendance" << endl;
-				cout << "4: Submit assignment" << endl;
-				cout << "5: Print Vacanies" << endl;
-				cout << "6: View all attendance" << endl;
-				cout << "7: Join a class" << endl;
-			}
-			if (group == 'F' || group == 'f' || group == 'A' || group == 'a')
-			{
-				cout << "8: Print users" << endl;
-				cout << "9: Create a new course" << endl;
-				cout << "A: Update Timetable" << endl;
-				cout << "B: Take attendance" << endl;
-				cout << "C: Post vacancy" << endl;
-				cout << "D: Remove a current vacancy posting" << endl;
-
-
-			}
-			if (group == 'A' || group == 'a')
-			{
-				cout << "E: Add a new student" << endl;
-				cout << "F: Remove an existing student" << endl;
-				cout << "G: Change Password" << endl;
-			}
-			cout << "Enter your choice: ";
-
-			cin >> input;
-			cin.clear();
-			list <user>::iterator it = userList.begin();
-			int numInput = 0;
-			char cInput;
-			string sInput[5] = { "", "", "", "", "" };
-			int val = 0;
+		}
+		if (group == 'A' || group == 'a')
+		{
+			cout << "E: Add a new student" << endl;
+			cout << "F: Remove an existing student" << endl;
+			cout << "G: Change Password" << endl;
+		}
+		cout << "Enter your choice: ";
+		cin >> input;
+		cin.clear();
+		list <user>::iterator it = userList.begin();
+		int numInput = 0;
+		char cInput;
+		string sInput[5] = { "", "", "", "", "" };
+		int val = 0;
 // These if and else if statements will control which function is being used
-			if (input == "1") // View the Time Table
+		if (input == "1") // View the Time Table
+		{
+			ViewTimetable();
+			input = "";
+		}
+		else if (input == "2") // Save and Exit Program
+		{
+			saveUsers(userList);
+			saveVacs(vacList);
+			saveCourse(courseList);
+			program = 0;
+			input = "";
+		}
+		else if (input == "3") // View Personal Attendance for a class
+		{
+			cout << "Enter the name of the class you are taking attendance for";
+			cin >> sInput[0];
+			cin.clear();
+			printAttendence(courseList, sInput[0], (*current).get_ID());
+			input = "";
+		}
+		else if (input == "4") // View the user Submission
+		{
+			if ((*current).get_group() != 'F' || (*current).get_group() != 'A' || (*current).get_group() != 'S')
 			{
-				ViewTimetable();
-				input = "";
-			}
-			else if (input == "2") // Save and Exit Program
-			{
-				saveUsers(userList);
-				saveVacs(vacList);
-				saveCourse(courseList);
-				program = 0;
-				input = "";
-			}
-			else if (input == "3") // View Personal Attendance for a class
-			{
-				cout << "Enter the name of the class you are taking attendance for";
-				cin >> sInput[0];
-				cin.clear();
-				printAttendence(courseList, sInput[0], current.get_ID());
-				input = "";
-			}
-			else if (input == "4") // View the user Submission
-			{
-				if (current.get_group() != 'F' || current.get_group() != 'A' || current.get_group() != 'S')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-					takeSubmission(current);
-				input = "";
-			}
-			else if (input == "5") // View Vacanies
-			{
-				for (list<vacancy>::iterator it = vacList.begin(); it != vacList.end(); ++it)
-				{
-					cout << it->get_position() << endl << it->get_description() << endl;
-				}
-				input = "";
-			}
-			else if (input == "6") // View Attendance of a student
-			{
-				cout << "Enter the name of the class you are taking attendance for: ";
-				cin >> sInput[0];
-				cin.clear();
-				cout << "Enter the ID of the student you want to view: ";
-				cin >> numInput;
-				cin.clear();
-				printAttendence(courseList, sInput[0], numInput);
-				input = "";
-			}
-			else if (input == "7") // Join a class
-			{
-				if (current.get_group() != 'F' || current.get_group() != 'A' || current.get_group() != 'S')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-				{
-					cout << "Enter Your ID: ";
-					cin >> numInput;
-					cin.clear();
-					cout << "Enter the Title of the course: ";
-					cin >> sInput[0];
-					cin.clear();
-					joinCourse(courseList, sInput[0], numInput);
-					userJoinCourse(userList, sInput[0], numInput);
-				}
-				input = "";
-			}
-			else if (input == "8") // Print the users
-			{
-				for (list<user>::iterator it = userList.begin(); it != userList.end(); ++it)
-				{
-					cout << it->get_ID() << " ID\n" << it->get_password() << " password\n" << it->get_firstName() << " First\n" << it->get_lastName() << " Last\n" << it->get_group() << endl;
-				}
-				input = "";
-			}
-			else if (input == "9") //Enter a new course
-			{
-				if (current.get_group() == 'S')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-				{
-					cout << "Enter the Title of the new course: ";
-					cin >> sInput[0];
-					cin.clear();
-					newCourse(courseList, sInput[0]);
-				}
-				input = "";
-			}
-			else if (input == "A") // Update a time in the Timetable
-			{
-				if (current.get_group() == 'S')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-					StoreTimetable();
-				input = "";
-			}
-			else if (input == "B") // Take Attendance
-			{
-				if (current.get_group() == 'S')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-					take_attendence(courseList, current);
-				input = "";
-			}
-			else if (input == "C") // Enter a new vacancy 
-			{
-				if (current.get_group() == 'S')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-				{
-					cin.ignore();
-					printf("Enter the position of the new vacancy");
-					getline(cin, posIn);
-					printf("Enter the discription of the new vacancy");
-					getline(cin, disIn);
-					newVacancy(vacList, posIn, disIn);
-				}
-				input = "";
-			}
-			else if (input == "D") // Remove a vacancy
-			{
-				if (current.get_group() == 'S')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-				{
-					cout << "Enter the position of the vacancy you would like to remove: ";
-					cin.ignore();
-					getline(cin, sInput[1]);
-					removeVacancy(vacList, sInput[1]);
-				}
-				input = "";
-			}
-			else if (input == "E") // New User 
-			{
-				if (current.get_group() != 'A')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-				{
-					cout << "Enter the new user's ID: ";
-					cin >> numInput;
-					cin.clear();
-					cout << "Enter the new user's password: ";
-					cin >> sInput[1];
-					cin.clear();
-					cout << "Enter the new user's first name: ";
-					cin >> sInput[2];
-					cin.clear();
-					cout << "Enter the new user's last name: ";
-					cin >> sInput[3];
-					cin.clear();
-					cout << "Enter the new user's permissions (A = Admin, F = Faculty, S = Student): ";
-					cin >> cInput;
-					cin.clear();
-					newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
-				}
-				input = "";
-			}
-			else if (input == "F") // Remove a student
-			{
-				if (current.get_group() != 'A')
-				{
-					cout << "You do not have permission to do this. How did you even get here?" << endl;
-				}
-				else
-				{
-					cout << "Enter the ID of the student you would like to remove: ";
-					cin >> numInput;
-					cin.clear();
-					removeUser(userList, numInput);
-				}
-				input = "";
-			}
-			else if (input == "G") // change a password
-			{
-				changePassword(current);
-				input = "";
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
 			}
 			else
-				cout << "Invalid Input! Please select an input from the menu!"<< endl;
-
-
-
-
+				takeSubmission((*current));
+			input = "";
+		}
+		else if (input == "5") // View Vacanies
+		{
+			for (list<vacancy>::iterator it = vacList.begin(); it != vacList.end(); ++it)
+			{
+				cout << it->get_position() << endl << it->get_description() << endl;
 			}
+			input = "";
+		}
+		else if (input == "6") // View Attendance of a student
+		{
+			cout << "Enter the name of the class you are taking attendance for: ";
+			cin >> sInput[0];
+			cin.clear();
+			cout << "Enter the ID of the student you want to view: ";
+			cin >> numInput;
+			cin.clear();
+			printAttendence(courseList, sInput[0], numInput);
+			input = "";
+		}
+		else if (input == "7") // Join a class
+		{
+			if ((*current).get_group() != 'F' || (*current).get_group() != 'A' || (*current).get_group() != 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter Your ID: ";
+				cin >> numInput;
+				cin.clear();
+				cout << "Enter the Title of the course: ";
+				cin >> sInput[0];
+				cin.clear();
+				joinCourse(courseList, sInput[0], numInput);
+				userJoinCourse(userList, sInput[0], numInput);
+			}
+			input = "";
+		}
+		else if (input == "8") // Print the users
+		{
+			for (list<user>::iterator it = userList.begin(); it != userList.end(); ++it)
+			{
+				cout << it->get_ID() << " ID\n" << it->get_password() << " password\n" << it->get_firstName() << " First\n" << it->get_lastName() << " Last\n" << it->get_group() << endl;
+			}
+			input = "";
+		}
+		else if (input == "9") //Enter a new course
+		{
+			if ((*current).get_group() == 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the Title of the new course: ";
+				cin >> sInput[0];
+				cin.clear();
+				newCourse(courseList, sInput[0]);
+			}
+			input = "";
+		}
+		else if (input == "A") // Update a time in the Timetable
+		{
+			if ((*current).get_group() == 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+				StoreTimetable();
+			input = "";
+		}
+		else if (input == "B") // Take Attendance
+		{
+			if ((*current).get_group() == 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+				take_attendence(courseList, (*current));
+			input = "";
+		}
+		else if (input == "C") // Enter a new vacancy 
+		{
+			if ((*current).get_group() == 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cin.ignore();
+				printf("Enter the position of the new vacancy");
+				getline(cin, posIn);
+				printf("Enter the discription of the new vacancy");
+				getline(cin, disIn);
+				newVacancy(vacList, posIn, disIn);
+			}
+			input = "";
+		}
+		else if (input == "D") // Remove a vacancy
+		{
+			if ((*current).get_group() == 'S')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the position of the vacancy you would like to remove: ";
+				cin.ignore();
+				getline(cin, sInput[1]);
+				removeVacancy(vacList, sInput[1]);
+			}
+			input = "";
+		}
+		else if (input == "E") // New User 
+		{
+			if ((*current).get_group() != 'A')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the new user's ID: ";
+				cin >> numInput;
+				cin.clear();
+				cout << "Enter the new user's password: ";
+				cin >> sInput[1];
+				cin.clear();
+				cout << "Enter the new user's first name: ";
+				cin >> sInput[2];
+				cin.clear();
+				cout << "Enter the new user's last name: ";
+				cin >> sInput[3];
+				cin.clear();
+				cout << "Enter the new user's permissions (A = Admin, F = Faculty, S = Student): ";
+				cin >> cInput;
+				cin.clear();
+				newUser(userList, numInput, sInput[1], sInput[2], sInput[3], cInput);
+			}
+			input = "";
+		}
+		else if (input == "F") // Remove a student
+		{
+			if ((*current).get_group() != 'A')
+			{
+				cout << "You do not have permission to do this. How did you even get here?" << endl;
+			}
+			else
+			{
+				cout << "Enter the ID of the student you would like to remove: ";
+				cin >> numInput;
+				cin.clear();
+				removeUser(userList, numInput);
+			}
+			input = "";
+		}
+		else if (input == "G") // change a password
+		{
+			changePassword((*current));
+			input = "";
+		}
+		else
+			cout << "Invalid Input! Please select an input from the menu!"<< endl;
 	}
+}
 
 
 
