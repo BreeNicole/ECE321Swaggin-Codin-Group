@@ -17,30 +17,135 @@ void newVacancy(list<vacancy>& vacList, string positionIn, string discriptionIn)
 
 void newUser(list<user>& userList, int ID, string password, string firstName, string lastName, char group)
 {
+	list<user>::iterator it;
+	for (it = userList.begin(); it != userList.end(); ++it)
+	{
+		if (ID == it->get_ID())
+		{
+			cout << "This ID is already taken" << endl;
+			return;
+		}
+	}
 	userList.push_back(user(ID, password, firstName, lastName, "", group));
 }
 
 void newCourse(list<course>& courseList, string title)
 {
-	courseList.push_back(course(title));
-}
-
-void joinCourse(list<course>& courseList, string title, int ID)
-{
 	list<course>::iterator it;
 	for (it = courseList.begin(); it != courseList.end(); ++it)
 	{
-		if (it->get_title() == title)
+		if (title == it->get_title())
 		{
-			it->setAttendance(it->get_attendance() + to_string(ID)+ "|");
-			cout << ID << " has joined " << title;
+			cout << "This course already exists" << endl;
+			return;
+		}
+	}
+	courseList.push_back(course(title));
+}
+
+void dropCourse(list<course>& courseList, list<user>& userList, string title, user &current)
+{
+	list<course>::iterator cit;
+	string parse = current.get_classList();
+	size_t val = 0;
+	int i = 0;
+	string courses[4] = { "","","","" };
+	bool inClass = false;
+	while ((val = parse.find("|")) != string::npos)
+	{
+		string token = parse.substr(0, val);
+		if (token == title)
+		{
+			inClass = true;
+		}
+		else
+		{
+			courses[i] = token;
+			i++;
+		}
+		parse.erase(0, val + 1);
+	}
+	if (inClass)
+	{
+		string newClassList = current.get_classList();
+		newClassList.replace(newClassList.find(title), title.length() + 1, "");
+		current.set_classList(newClassList);
+		for (cit = courseList.begin(); cit != courseList.end(); ++cit)
+		{
+			if (cit->get_title() == title)
+			{
+				string change = cit->get_attendance();
+				change.replace(change.find(to_string(current.get_ID())), to_string(current.get_ID()).length() + 1 ,"");
+				cit->setAttendance(change);
+				cout << "You have dropped " << title << endl;
+			}
+		}
+
+	}
+	else
+	{
+		cout << "You are not in this class" << endl;
+		return;
+	}
+}
+
+void joinCourse(list<course>& courseList, list<user>& userList, string title, user &current)
+{
+	list<course>::iterator cit;
+	string parse = current.get_classList();
+	size_t val = 0;
+	int i = 0;
+	while ((val = parse.find("|")) != string::npos)
+	{
+		if (i > 3)
+		{
+			cout << "You may not join more than 5 classes" << endl;
+			return;
+		}
+
+		string token = parse.substr(0, val);
+		if (token == title)
+		{
+			cout << "You are already in this class" << endl;
+			return;
+		}
+		i++;
+		parse.erase(0, val + 1);
+	}
+
+	for (cit = courseList.begin(); cit != courseList.end(); ++cit)
+	{
+		if (cit->get_title() == title)
+		{
+			parse = cit->get_attendance();
+			val = 0;
+			i = 0;
+			while ((val = parse.find("|")) != string::npos)
+			{
+				if (i > 28)
+				{
+					cout << "This class is full" << endl;
+					return;
+				}
+				string token = parse.substr(0, val);
+				if (token == title)
+				{
+					cout << "You are already in this class" << endl;
+					return;
+				}
+				i++;
+				parse.erase(0, val + 1);
+			}
+			cit->setAttendance(cit->get_attendance() + to_string(current.get_ID()) + "|");
+			current.set_classList(current.get_classList() + title + "|");
+			cout << current.get_ID() << " has joined " << title << endl;
 			return;
 		}
 	}
 	cout << "Course not found" << endl;
 }
 
-void userJoinCourse(list<user>& userList, string title, int ID)
+/*void userJoinCourse(list<user>& userList, string title, int ID)
 {
 	list<user>::iterator it;
 	for (it = userList.begin(); it != userList.end(); ++it)
@@ -52,7 +157,7 @@ void userJoinCourse(list<user>& userList, string title, int ID)
 		}
 	}
 	cout << "ID not found" << endl;
-}
+}*/
 
 void removeVacancy(list<vacancy>& vacList, string del)
 {
@@ -145,14 +250,14 @@ list<course> readCourses()
 			}
 			dataArray[i] = line;
 			i = 0;
-			readCourse.push_back(course(dataArray[0], dataArray[1], dataArray[2]));
+			readCourse.push_back(course(dataArray[0], dataArray[1]));
 		}
 		infile.close();
 	}
 	else
 	{
 		cout << "courses.txt failed to open" << endl;
-		readCourse.push_back(course("Temp", "Please remove this after you add a course", ""));
+		readCourse.push_back(course("Temp", "Please remove this after you add a course"));
 	}
 	return readCourse;
 }
@@ -225,8 +330,7 @@ void saveCourse(list<course> saveCourse)
 		for (list<course>::iterator it = saveCourse.begin(); it != saveCourse.end(); ++it)
 		{
 			outfile << it->get_title() << '/';
-			outfile << it->get_attendance() << '/';
-			outfile << it->get_submission() << endl;
+			outfile << it->get_attendance() << endl;
 		}
 		cout << "courses.txt saved" << endl;
 	}
@@ -263,9 +367,6 @@ void take_attendence(list<course> courses, user current)
 	}
 	else
 	{
-		//string * readIn = parseLine(current.get_classList());
-
-
 		string courseRead[5];
 		string token;
 		size_t pos = 0;
@@ -289,8 +390,7 @@ void take_attendence(list<course> courses, user current)
 		cout << "Enter the name of the course you are taking attendence for: ";
 		string read;
 		bool found = false;
-		cin >> read;
-		cin.ignore();
+		getline(cin, read);
 		for (int i = 0; i < 5; i++)
 		{
 			if (read == "Exit")
@@ -412,8 +512,7 @@ void takeSubmission(user current)
 {
 	cout << "Please enter the class you are submitting for: ";
 	string classname;
-	cin >> classname;
-	cin.ignore();
+	getline(cin, classname);
 
 	string courseRead[5];
 	string token;
@@ -441,8 +540,7 @@ void takeSubmission(user current)
 	}
 	cout << "Please enter the file name you would like to submit: ";
 	string filename;
-	cin >> filename;
-	cin.ignore();
+	getline(cin, filename);
 
 	ofstream outfile;
 	string file = ((classname) + ("_submissions.txt"));
@@ -462,18 +560,15 @@ void changePassword(user &current)
 	string newPass;
 	string newPassCheck;
 	cout << "Please enter your password: ";
-	cin >> oldPass;
-	cin.ignore();
+	getline(cin, oldPass);
 	while (1)
 	{
 		if (oldPass == current.get_password())
 		{
 			cout << "Please enter your new password: ";
-			cin >> newPass;
-			cin.ignore();
+			getline(cin, newPass);
 			cout << "Please re enter your new password: ";
-			cin >> newPassCheck;
-			cin.ignore();
+			getline(cin, newPassCheck);
 			if(newPass != newPassCheck)
 			{
 				cout << "The passwords did not match" << endl;
@@ -492,9 +587,9 @@ void changePassword(user &current)
 		else
 		{
 			cout << "Incorrect password, type Exit to leave" << endl << "Please enter your new password: ";
-			cin >> oldPass;
-			cin.ignore();
+			getline(cin, oldPass);
 		}
 	}
 }
+
 
