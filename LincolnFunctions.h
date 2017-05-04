@@ -22,5 +22,6 @@ void take_attendence(list<course> courses, user current);
 void printAttendence(list<course>, string courseTitle, int ID);
 void takeSubmission(user current);
 void changePassword(user &current);
+bool hasAChar(string check, string find);
 
 #endif // LINCOLNFUNCTIONS_H_
