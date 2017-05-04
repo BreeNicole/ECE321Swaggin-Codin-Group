@@ -10,10 +10,15 @@
 #include <time.h>
 #pragma warning(disable : 4996)
 
+
+
 void newVacancy(list<vacancy>& vacList, string positionIn, string discriptionIn)
 {
 	vacList.push_back(vacancy(positionIn, discriptionIn));
 }
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 void newUser(list<user>& userList, int ID, string password, string firstName, string lastName, char group)
 {
@@ -29,6 +34,9 @@ void newUser(list<user>& userList, int ID, string password, string firstName, st
 	userList.push_back(user(ID, password, firstName, lastName, "", group));
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 void newCourse(list<course>& courseList, string title)
 {
 	list<course>::iterator it;
@@ -42,6 +50,9 @@ void newCourse(list<course>& courseList, string title)
 	}
 	courseList.push_back(course(title));
 }
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 void dropCourse(list<course>& courseList, list<user>& userList, string title, user &current)
 {
@@ -88,6 +99,9 @@ void dropCourse(list<course>& courseList, list<user>& userList, string title, us
 		return;
 	}
 }
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 void joinCourse(list<course>& courseList, list<user>& userList, string title, user &current)
 {
@@ -145,19 +159,8 @@ void joinCourse(list<course>& courseList, list<user>& userList, string title, us
 	cout << "Course not found" << endl;
 }
 
-/*void userJoinCourse(list<user>& userList, string title, int ID)
-{
-	list<user>::iterator it;
-	for (it = userList.begin(); it != userList.end(); ++it)
-	{
-		if (it->get_ID() == ID)
-		{
-			it->set_classList(it->get_classList() + title + "|");
-			return;
-		}
-	}
-	cout << "ID not found" << endl;
-}*/
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 void removeVacancy(list<vacancy>& vacList, string del)
 {
@@ -174,6 +177,9 @@ void removeVacancy(list<vacancy>& vacList, string del)
 	cout << "Position not found, no changes have been made." << endl;
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 void removeUser(list<user>& userList, int ID)
 {
 	list<user>::iterator it = userList.begin();
@@ -188,6 +194,9 @@ void removeUser(list<user>& userList, int ID)
 	}
 	cout << "ID not found, no changes have been made." << endl;
 }
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 list<user> readUsers() // This function will read the file and input the data in to the program. The .txt file should be saved in a particular order, depending on the type of structure it is
 {
@@ -220,11 +229,14 @@ list<user> readUsers() // This function will read the file and input the data in
 	}
 	else
 	{
-		cout << "users.txt failed to open" << endl;
+		cout << "users.txt failed to open" << endl << "Admin account has been created \n ID is 1 \n password is password" << endl;
 		readUser.push_back(user(1, "password", "admin", "", "", 'A'));
 	}
 	return readUser;
 }
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 list<course> readCourses()
 {
@@ -262,6 +274,9 @@ list<course> readCourses()
 	return readCourse;
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 list<vacancy> readVacs()
 {
 	list<vacancy> readVac;
@@ -277,11 +292,11 @@ list<vacancy> readVacs()
 	{
 		while (getline(infile, line))
 		{
-			while ((pos = line.find("/")) != string::npos)
+			while ((pos = line.find("//")) != string::npos)
 			{
 				token = line.substr(0, pos);
 				dataArray[i] = token;
-				line.erase(0, pos + 1);
+				line.erase(0, pos + 2);
 				++i;
 			}
 			dataArray[i] = line;
@@ -297,6 +312,9 @@ list<vacancy> readVacs()
 	}
 	return readVac;
 }
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 void saveUsers(list<user> saveUser)
 {
@@ -321,6 +339,9 @@ void saveUsers(list<user> saveUser)
 	}
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 void saveCourse(list<course> saveCourse)
 {
 	ofstream outfile;
@@ -340,6 +361,9 @@ void saveCourse(list<course> saveCourse)
 	}
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 void saveVacs(list<vacancy> saveVac)
 {
 	ofstream outfile;
@@ -348,7 +372,7 @@ void saveVacs(list<vacancy> saveVac)
 	{
 		for (list<vacancy>::iterator it = saveVac.begin(); it != saveVac.end(); ++it)
 		{
-			outfile << it->get_position() << '/';
+			outfile << it->get_position() << "//";
 			outfile << it->get_description() << endl;
 		}
 		cout << "vacancies.txt saved" << endl;
@@ -359,11 +383,14 @@ void saveVacs(list<vacancy> saveVac)
 	}
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 void take_attendence(list<course> courses, user current)
 {
 	if (current.get_group() == 'S')
 	{
-		cout << "You do not have permission to do this. How did you even get here?" << endl;
+		cout << "You do not have permission to do this. Somehow you managed to get past the first check though" << endl;
 	}
 	else
 	{
@@ -480,6 +507,9 @@ void take_attendence(list<course> courses, user current)
 	}
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 void printAttendence(list<course>, string courseTitle, int ID)
 {
 	ifstream infile;
@@ -507,6 +537,9 @@ void printAttendence(list<course>, string courseTitle, int ID)
 	}
 	infile.close();
 }
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 void takeSubmission(user current)
 {
@@ -554,6 +587,9 @@ void takeSubmission(user current)
 	outfile.close();
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
 void changePassword(user &current)
 {
 	string oldPass;
@@ -567,17 +603,24 @@ void changePassword(user &current)
 		{
 			cout << "Please enter your new password: ";
 			getline(cin, newPass);
-			cout << "Please re enter your new password: ";
-			getline(cin, newPassCheck);
-			if(newPass != newPassCheck)
+			if (newPass.length() < 4)
 			{
-				cout << "The passwords did not match" << endl;
+				cout << "Your password must be more than 4 characters" << endl;
 			}
 			else
 			{
-				current.set_password(newPass);
-				cout << "Your password has been updated" << endl;
-				return;
+				cout << "Please re enter your new password: ";
+				getline(cin, newPassCheck);
+				if (newPass != newPassCheck)
+				{
+					cout << "The passwords did not match" << endl;
+				}
+				else
+				{
+					current.set_password(newPass);
+					cout << "Your password has been updated" << endl;
+					return;
+				}
 			}
 		}
 		else if (oldPass == "Exit")
@@ -592,4 +635,15 @@ void changePassword(user &current)
 	}
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
+bool hasAChar(string check, string find)
+{
+	size_t found = check.find(find);
+	if (found == string::npos)
+	{
+		return false;
+	}
+	return true;
+}
