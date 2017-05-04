@@ -22,8 +22,7 @@ void StoreTimetable()
 		return;
 	}
 	cout << "Enter the month: ";
-	cin >> month;
-	cin.ignore();
+	getline(cin, month);
 	while (outfile.is_open()) //this makes sure you actually entered the name of a month
 	{
 		if (month == "January" || month == "February" || month == "March" || month == "April" || month == "May" || month == "June" || month == "July" || month == "August" || month == "September" || month == "October" || month == "November" || month == "December")
@@ -33,8 +32,7 @@ void StoreTimetable()
 		else
 		{
 			cout << "You entered an invalid month. Please try again." << endl;
-			cin >> month;
-			cin.ignore();
+			getline(cin, month);
 		}
 	}
 	cout << "Enter the day: ";
