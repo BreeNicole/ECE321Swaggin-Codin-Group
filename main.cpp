@@ -278,6 +278,10 @@ void main()
 						{
 							cout << "You may not enter a password with /" << endl;
 						}
+						else if (sInput[1].length() < 4)
+						{
+							cout << "A password must be at least four characters long" << endl;
+						}
 						else
 						{
 							cout << "Enter the new user's first name: ";
@@ -357,4 +361,3 @@ void main()
 			cout << "Invalid input! Please select an input from the menu!" << endl;
 	}
 }
-
